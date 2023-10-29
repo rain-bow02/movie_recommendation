@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopserve.dao.MoviesDao">
+
+    <resultMap type="com.example.shopserve.entity.Movies" id="MoviesMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="release_time" column="release_time" jdbcType="VARCHAR"/>
+        <result property="intro" column="intro" jdbcType="BIGINT"/>
+        <result property="director" column="director" jdbcType="VARCHAR"/>
+        <result property="writers" column="writers" jdbcType="VARCHAR"/>
+        <result property="actors" column="actors" jdbcType="INTEGER"/>
+        <result property="time" column="time" jdbcType="VARCHAR"/>
+        <result property="genre" column="genre" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoviesMap">
+        SELECT movies.id,
+               movies.name,movies.imdb_id,
+               movies.release_time,
+               movies.intro, movies.director, movies.writers, movies.actors, movies.time,
+               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
+        FROM movies
+                 INNER JOIN movie_avg_rating ON movies.imdb_id = movie_avg_rating.movie_id
+        WHERE movies.id =#{id}
+    </select>
+
+<!--    &lt;!&ndash;统计总行数&ndash;&gt;-->
+<!--    <select id="count" resultType="java.lang.Long">-->
+<!--        select count(1)-->
+<!--        from movies-->
+<!--        <where>-->
+<!--            <if test="id != null">-->
+<!--                and id = #{id}-->
+<!--            </if>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                and name = #{name}-->
+<!--            </if>-->
+<!--            <if test="imag != null and imag != ''">-->
+<!--                and imag = #{imag}-->
+<!--            </if>-->
+<!--            <if test="price != null">-->
+<!--                and price = #{price}-->
+<!--            </if>-->
+<!--            <if test="desc != null and desc != ''">-->
+<!--                and desc = #{desc}-->
+<!--            </if>-->
+<!--            <if test="sales != null">-->
+<!--                and sales = #{sales}-->
+<!--            </if>-->
+<!--            <if test="typeid != null">-->
+<!--                and typeId = #{typeid}-->
+<!--            </if>-->
+<!--            <if test="disc != null and disc != ''">-->
+<!--                and disc = #{disc}-->
+<!--            </if>-->
+<!--            <if test="shopid != null">-->
+<!--                and shopId = #{shopid}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;新增所有列&ndash;&gt;-->
+<!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into movies(name, imag, price, desc, sales, typeId, disc, shopId)-->
+<!--        values (#{name}, #{imag}, #{price}, #{desc}, #{sales}, #{typeid}, #{disc}, #{shopid})-->
+<!--    </insert>-->
+
+<!--    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into dishes(name,release_time,intro, director, writers, actors, time, genre)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.name}, #{entity.release_time}, #{entity.intro}, #{entity.director}, #{entity.writers}, #{entity.actors},-->
+<!--            #{entity.disc}, #{entity.shopid})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+<!--    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into dishes(name, imag, price, desc, sales, typeId, disc, shopId)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.name}, #{entity.imag}, #{entity.price}, #{entity.desc}, #{entity.sales}, #{entity.typeid},-->
+<!--            #{entity.disc}, #{entity.shopid})-->
+<!--        </foreach>-->
+<!--        on duplicate key update-->
+<!--        name = values(name),-->
+<!--        imag = values(imag),-->
+<!--        price = values(price),-->
+<!--        desc = values(desc),-->
+<!--        sales = values(sales),-->
+<!--        typeId = values(typeId),-->
+<!--        disc = values(disc),-->
+<!--        shopId = values(shopId)-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash;通过主键修改数据&ndash;&gt;-->
+<!--    <update id="update">-->
+<!--        update dishes-->
+<!--        <set>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                name = #{name},-->
+<!--            </if>-->
+<!--            <if test="imag != null and imag != ''">-->
+<!--                imag = #{imag},-->
+<!--            </if>-->
+<!--            <if test="price != null">-->
+<!--                price = #{price},-->
+<!--            </if>-->
+<!--            <if test="desc != null and desc != ''">-->
+<!--                desc = #{desc},-->
+<!--            </if>-->
+<!--            <if test="sales != null">-->
+<!--                sales = #{sales},-->
+<!--            </if>-->
+<!--            <if test="typeid != null">-->
+<!--                typeId = #{typeid},-->
+<!--            </if>-->
+<!--            <if test="disc != null and disc != ''">-->
+<!--                disc = #{disc},-->
+<!--            </if>-->
+<!--            <if test="shopid != null">-->
+<!--                shopId = #{shopid},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;通过主键删除&ndash;&gt;-->
+<!--    <delete id="deleteById">-->
+<!--        delete-->
+<!--        from dishes-->
+<!--        where id = #{id}-->
+<!--    </delete>-->
+
+<!--    根据菜品类型ID查询菜-->
+        <select id="selectByType" resultType="com.example.shopserve.entity.Movies">
+            SELECT * FROM movies WHERE id IN(SELECT movie_id FROM movie_genre WHERE genre_id=${genre_id})  LIMIT 100
+        </select>
+
+
+    <select id="queryAllMovies" resultType="com.example.shopserve.entity.Movies">
+        SELECT movies.id,
+               movies.name,movies.imdb_id,
+               movies.release_time,
+               movies.intro, movies.director, movies.writers, movies.actors, movies.time,
+               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
+        FROM movie_avg_rating join movies on movies.imdb_id = movie_avg_rating.movie_id LIMIT 200
+    </select>
+    <select id="queryByUserId" resultType="com.example.shopserve.entity.Rating">
+        select movie_id,score FROM movie_rating where user_id=#{user_id}
+    </select>
+    <select id="selectmoviesByCondition" resultMap="MoviesMap">
+        SELECT movies.id,
+               movies.name,movies.imdb_id,
+               movies.release_time,
+               movies.intro, movies.director, movies.writers, movies.actors, movies.time,
+               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
+        FROM movies
+                 INNER JOIN movie_avg_rating ON movies.imdb_id = movie_avg_rating.movie_id
+        <where>
+            <if test="selectCondition!=null and selectCondition!='' ">
+                AND movies.name LIKE CONCAT('%',#{selectCondition},'%')
+            </if>
+
+        </where>
+    </select>
+
+    <!--    SELECT round(AVG(score),2) as avg_score FROM movie_rating WHERE movie_id=${genre_id}-->
+</mapper>
+

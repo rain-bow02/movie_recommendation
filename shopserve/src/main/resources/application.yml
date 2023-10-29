@@ -1,0 +1,31 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/movie?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: 123456
+    druid:
+    time-between-eviction-runs-millis: 300000
+    keep-alive-between-time-millis: 450000
+
+
+mybatis:
+  type-aliases-package: com.example.shopserve.entity
+  mapper-locations: classpath:mapper/*Dao.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql
+
+

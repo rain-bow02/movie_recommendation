@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopserve.dao.RecommendDao">
+
+    <resultMap type="com.example.shopserve.entity.Rating" id="showRating">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="movie_id" column="movie_id" jdbcType="INTEGER"/>
+        <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+        <collection property="movies" javaType="list"  ofType="com.example.shopserve.entity.Movies">
+            <result property="name"  column="name"  jdbcType="VARCHAR" />
+            <result property="imdb_id" column="imdb_id" jdbcType="INTEGER" />
+            <result property="release_time" column="release_time" jdbcType="VARCHAR"/>
+            <result property="intro" column="intro" jdbcType="BIGINT"/>
+            <result property="director" column="director" jdbcType="VARCHAR"/>
+            <result property="writers" column="writers" jdbcType="VARCHAR"/>
+            <result property="actors" column="actors" jdbcType="INTEGER"/>
+            <result property="time" column="time" jdbcType="VARCHAR"/>
+            <result property="genre" column="genre" jdbcType="INTEGER"/>
+            <result property="genre" column="genre" jdbcType="INTEGER"/>
+            <result property="avg_rating" column="avg_rating" jdbcType="INTEGER"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllRecommend" resultType="com.example.shopserve.entity.Recommend">
+        select movie_id,user_id,score from movie_rating
+    </select>
+    <select id="getRecommendByUserId" resultType="com.example.shopserve.entity.Recommend">
+        select movie_id,user_id,score from movie_rating where user_id=#{userId}
+    </select>
+
+    <!--    <insert id="SaveRating" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert ignore into user(name, password, email, title)-->
+<!--        values ("234248","234248","234248","dsadsfdasfdassssssssssssssssss")-->
+<!--    </insert>-->
+
+    <!--查询单个-->
+<!--    <select id="queryByName" resultMap="UserMap">-->
+<!--        select-->
+<!--            id,-->
+<!--            name,-->
+<!--            password,-->
+<!--            email,-->
+<!--            title-->
+<!--        from `user`-->
+<!--        where name = #{name}-->
+<!--    </select>-->
+
+
+
+</mapper>
+
