@@ -10,8 +10,8 @@
         :src="previewImage"
       /><br />
       <span>{{ user.name }}</span>
-      <span click="openFile">更换头像</span>
-      <input type="file" @change="handleFileChange" accept="image/*" />
+      <!-- <span click="openFile"></span> -->
+      <!-- <input type="file" @change="handleFileChange" accept="image/*" /> -->
     </div>
 
     <el-card class="personal_card">
@@ -20,7 +20,18 @@
         <button @click="showRating" style="float: right">></button>
       </div>
     </el-card>
-
+    <el-card class="personal_card">
+      <div slot="header" class="personal_header">
+        <span class="personal_title">收藏夹</span>
+        <button @click="showRating" style="float: right">></button>
+      </div>
+    </el-card>
+    <el-card class="personal_card">
+      <div slot="header" class="personal_header">
+        <span class="personal_title">历史记录</span>
+        <button @click="showRating" style="float: right">></button>
+      </div>
+    </el-card>
     <!-- 分割线 -->
     <!-- <van-divider /> -->
 

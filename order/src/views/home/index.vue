@@ -54,7 +54,7 @@
         <span style="font-size: 12px; font-weight: 600">肉蛋</span>
       </van-grid-item>
     </van-grid>
-    
+
     <van-tabs v-model="active" @change="changeTab">
       <van-tab title="全部" name=""></van-tab>
       <van-tab title="时间升序" name="time"></van-tab>
@@ -110,7 +110,7 @@
 </template>
 <script>
 import axios from "axios";
-import { getSearchStores, showAll, getSortedStore  } from "../../api/home";
+import { getSearchStores, showAll, getSortedStore } from "../../api/home";
 /**导出该组件 */
 export default {
   name: "Home", //组件名称
@@ -143,7 +143,7 @@ export default {
     },
     //当菜单被切换调用此方法
     changeTab(name) {
-     //console.log(name+title);
+      //console.log(name+title);
       //发送请求，填充商品信息 通过类型ID查找商品数据 name
       //如果不是“全部标签”
       if (name != "") {
@@ -174,7 +174,6 @@ export default {
     screenDishes(id) {
       this.$router.push({ name: "dishes", params: { typeId: id } });
     },
-    
   },
   async created() {
     // this.getStoresList();
@@ -221,5 +220,8 @@ export default {
 }
 .input {
   flex: 1;
+}
+.van-card {
+  background-color: red;
 }
 </style>

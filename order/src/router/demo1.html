@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="all">
+      <div class="header">
+        <div class="header-left">
+          <a href="">首页</a>
+          <a href="">课程</a>
+          <a href="">职业规划</a>
+        </div>
+        <input type="text" />
+        <div class="name">name</div>
+        <!-- <ul>
+                <li>首页</li>
+                <li>课程</li>
+                <li>职业规划</li>
+                <li><input placeholder="输入关键字"></input></li>
+                <li>一个名字</li>
+            </ul> -->
+      </div>
+      <div class="navigation">
+        <div class="navi">
+          <ul onclick="loop()" id="ulli">
+            <li id="liul">
+              <div id="innertext">前端开发</div>
+              <span> > </span>
+            </li>
+          </ul>
+        </div>
+        <div class="table">
+          <ul>
+            <li
+              style="
+                text-align: center;
+                background-color: #8fcfee;
+                padding-top: 10px;
+                margin: 0px;
+              "
+            >
+              我的课程表
+            </li>
+            <li>
+              继续学习 程序语言设计
+              <br />
+              正在学习-使用对象
+            </li>
+            <hr />
+            <li>
+              继续学习 程序语言设计
+              <br />
+              正在学习-使用对象
+            </li>
+            <hr />
+            <li>
+              继续学习 程序语言设计
+              <br />
+              正在学习-使用对象
+            </li>
+            <hr />
+            <li style="text-align: center">
+              <button
+                style="
+                  border-color: #35baeb;
+                  font-size: large;
+                  width: 160px;
+                  color: #35baeb;
+                "
+              >
+                全部课程
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gridLayout">
+        <div class="recom">
+          <ul>
+            <li style="color: #35baeb">精品推荐</li>
+            <span>|</span>
+            <li>jQuery</li>
+            <span>|</span>
+            <li>jQuery</li>
+            <span>|</span>
+            <li>jQuery</li>
+            <span>|</span>
+            <li>jQuery</li>
+          </ul>
+          <div style="color: #35baeb">修改兴趣</div>
+        </div>
+        <div class="mid">
+          <div><strong>精品推荐</strong></div>
+          <div style="color: darkgray">查看全部</div>
+        </div>
+
+        <div class="grid">
+          <div></div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-left">
+          <div style="color: darkgray">
+            一些文字一些文字一些文字
+            <br />
+            一些文字一些文字一些文字
+          </div>
+          <button class="leftbtn">下载app</button>
+        </div>
+        <div class="footer-right">
+          <ul>
+            <li>关于学成网</li>
+            <li>关于</li>
+            <li>管理团队</li>
+          </ul>
+
+          <ul>
+            <li>关于学成网</li>
+            <li>关于</li>
+            <li>管理团队</li>
+          </ul>
+          <ul>
+            <li>关于学成网</li>
+            <li>关于</li>
+            <li>管理团队</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body,
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  hr {
+    width: 160px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .all {
+    width: 100%;
+    height: 100vh;
+    background-color: antiquewhite;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50%;
+    transform: translate(-50%);
+  }
+
+  .header {
+    width: 100%;
+    height: 60px;
+    background-color: #f0f5f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .header-left {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+  }
+
+  .header input {
+    height: 30px;
+    width: 200px;
+  }
+
+  .name {
+    margin-right: 100px;
+  }
+
+  .navigation {
+    width: 100%;
+    height: 350px;
+    background-color: #210070;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 110px 11px 110px;
+
+    /* position: relative; */
+  }
+
+  .navi {
+    height: 350px;
+    width: 200px;
+    background-color: #17004f;
+    color: aliceblue;
+  }
+
+  .navi ul {
+    width: 100%;
+  }
+
+  .navi li {
+    padding-top: 21px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .table {
+    width: 200px;
+
+    font-size: 14px;
+  }
+
+  .table ul {
+    width: 200px;
+    background-color: #ffffff;
+  }
+
+  .table li {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .gridLayout {
+    width: 100%;
+    background-color: #f0f5f8;
+    /* display: flex; */
+    padding: 10px 110px 11px 110px;
+  }
+
+  .recom {
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    line-height: 47px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 3px 3px 5px 1px darkgray, 3px -3px 5px 1px darkgray,
+      3px 3px 5px 1px darkgray, -3px 3px 5px 1px darkgray;
+    padding-right: 30px;
+  }
+
+  .gridLayout ul {
+    display: inline-flex;
+  }
+
+  .gridLayout li {
+    margin-right: 23px;
+  }
+
+  .mid {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0px 30px 0px;
+  }
+
+  .grid {
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    justify-content: space-between;
+  }
+
+  .grid-container {
+    width: 224px;
+    height: 250px;
+    background-color: #fff;
+  }
+
+  .grid-ishot {
+    width: 100%;
+    color: red;
+    display: flex;
+    justify-content: end;
+  }
+
+  .ishot {
+    border-color: red;
+    border-width: 1px;
+    margin-right: 20px;
+  }
+
+  .grid-inner {
+    padding: 20px;
+  }
+
+  .grid-head {
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .grid-foot {
+    font-size: 10px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .grid-to {
+    font-size: large;
+  }
+
+  .footer {
+    width: 100%;
+    height: 150px;
+    background-color: #fff;
+    padding: 35px 110px 11px 110px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    height: 100%;
+    margin-top: 60px;
+  }
+
+  .leftbtn {
+    width: 100px;
+    height: 30px;
+    color: #35baeb;
+    border-color: #35baeb;
+    margin-top: 8px;
+    font-size: large;
+  }
+
+  .footer-right {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+<script>
+  let data = [
+    { name: "前端开发", id: 1 },
+    { name: "后端开发", id: 2 },
+    { name: "Vue开发", id: 3 },
+    { name: "react开发", id: 4 },
+  ];
+  let gridItem = [
+    {
+      name: "Think PHP 5.0 校园系统实战 项目演练",
+      level: "高级",
+      person: 3000,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 博客系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 安卓系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: true,
+    },
+    {
+      name: "Think PHP 5.0 ios系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 外卖系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 电影系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 空调系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 超市系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: true,
+    },
+    {
+      name: "Think PHP 5.0 银行系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+    {
+      name: "Think PHP 5.0 淘宝系统实战 项目演练",
+      level: "高级",
+      person: 1125,
+      ishot: false,
+    },
+  ];
+  function loop() {
+    let some = document.getElementById("ulli");
+    for (let i = 0; i < data.length; i++) {
+      let one = document.createElement("li");
+      one.id = "liul" + data[i].id;
+      let inner = document.createElement("div");
+      inner.id = "innertext" + data[i].id;
+      inner.textContent = data[i].name;
+      let tospan = document.createElement("span");
+      tospan.textContent = ">";
+      one.appendChild(inner);
+      one.appendChild(tospan);
+      some.appendChild(one);
+    }
+  }
+  function gridloop() {
+    //获得父元素
+    let some = document.getElementsByClassName("grid");
+    for (let i = 0; i < gridItem.length; i++) {
+      //创建一个container
+      let one = document.createElement("div");
+      one.className = "grid-container";
+      let hot = document.createElement("div");
+      hot.className = "grid-ishot";
+      let ishot = document.createElement("div");
+      ishot.className = "ishot";
+      ishot.textContent = "hot";
+      let inner = document.createElement("div");
+      inner.className = "grid-inner";
+      let head = document.createElement("div");
+      head.className = "grid-head";
+      //填充数据
+      head.textContent = gridItem[i].name;
+      let foot = document.createElement("div");
+      foot.className = "grid-foot";
+      let level = document.createElement("div");
+      level.className = "grid-level";
+      level.textContent = gridItem[i].level;
+      let to = document.createElement("div");
+      to.className = "grid-to";
+      to.textContent = ".";
+      let person = document.createElement("div");
+      person.className = "grid-person";
+      person.textContent = gridItem[i].person + "在学习";
+      //将创建的节点加入进去
+      hot.appendChild(ishot);
+      foot.appendChild(level);
+      foot.appendChild(to);
+      foot.appendChild(person);
+      inner.appendChild(head);
+      inner.appendChild(foot);
+      one.appendChild(hot);
+      one.appendChild(inner);
+      some[0].appendChild(one);
+      //hot是否展示
+      let nothot = document.getElementsByClassName("ishot");
+      if (gridItem[i].ishot == true) {
+        nothot[i].style.visibility = "hidden";
+      }
+    }
+  }
+
+  // let one = document.getElementById("liul");
+  // for (let i = 0; i < data.length; i++) {
+  //   let inner = one.cloneNode(true);
+  //   // inner.innerHtml = one.innerHtml;
+  //   let innertext = document.getElementById("innertext");
+  //   innertext.textContent = data[i].name;
+  //   some.appendChild(inner);
+  // }
+
+  // function gridloop() {
+  //   //获得父元素
+  //   let some = document.getElementsByClassName("grid");
+  //   //获得子元素
+  //   let one = document.getElementsByClassName("grid-container");
+  //   for (let i = 0; i < gridItem.length; i++) {
+  //     // console.log(gridItem[i].name);
+  //     //复制子元素属性
+  //     let inner = one[0].cloneNode(true);
+  //     inner.innerHtml = one.innerHtml;
+  //     //获取要赋值的节点
+  //     let text1 = document.getElementById("grid-head");
+  //     //将信息填入复制元素
+  //     text1.textContent = gridItem[i].name;
+  //     //重复赋值操作
+  //     let text2 = document.getElementById("grid-level");
+  //     text2.textContent = gridItem[i].level;
+  //     let text3 = document.getElementById("grid-person");
+  //     text3.textContent = gridItem[i].person;
+  //     //是否显示hot
+  //     let nothot = document.getElementsByClassName("ishot");
+  //     if (gridItem[i].ishot == true) {
+  //       nothot[i].style.visibility = "hidden";
+  //     }
+
+  //     some[0].appendChild(inner);
+  //   }
+  // }
+  // function theloop(someid, oneid, innertextid, innertext) {
+  //   //获得父元素
+  //   let some = document.getElementById(someid);
+  //   //获得子元素
+  //   let one = document.getElementById(oneid);
+  //   for (let i = 0; i < innertext.length; i++) {
+  //     //复制子元素属性
+  //     let inner = one.cloneNode(true);
+  //     // inner.innerHtml = one.innerHtml;
+  //     //将信息填入复制元素
+  //     for (let j = 0; j < innertextid.length; j++) {
+  //       let text = document.getElementById(innertextid[j]);
+  //       text.textContent = innertext[j].name;
+  //     }
+  //     some.appendChild(inner);
+  //   }
+  // }
+  //
+  window.addEventListener("load", function () {
+    loop();
+    gridloop();
+  });
+</script>

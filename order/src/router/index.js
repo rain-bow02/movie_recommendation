@@ -8,5 +8,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
-
+// 路由器传参params,query{传id之类的}
 export default router //导出当前文件 router

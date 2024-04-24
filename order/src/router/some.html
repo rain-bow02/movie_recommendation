@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <!-- <div></div><ol></ol><ul><li></li></ul><h></h>
+    //行<p></p><span></span><a></a>
+    //行内块<input><img>
+    <div class="main">
+    <div class="box" id="some"></div></div>
+
+    <ul class="father" onclick="clickul()"><li>11</li>
+    <li >22</li></ul>
+    
+     <div class="box" onclick="big()">
+        <div class="box1" onclick="small()">
+
+     </div></div>
+     <button onclick="promiseConsole()">hahhhh
+    </button> -->
+      <!-- <div style="height: 500px;width: 500px;background-color:red;position: relative;">
+</div> -->
+      <div class="center">盒子居中</div>
+    </div>
+  </body>
+</html>
+<style>
+  p {
+    /* 行标签宽高设置无效 */
+    display: block;
+    /* 块标签 */
+    display: inline;
+    /* 行标签 */
+    display: inline-block;
+    /* 行内块 */
+  }
+  .box {
+    height: 50px;
+    width: 50px;
+    background-color: #753333;
+  }
+  .box1 {
+    height: 40px;
+    width: 40px;
+    background-color: cornflowerblue;
+  }
+
+  /* 选择器优先级：
+    ！important 
+    内联样式
+    id
+    类名样式
+     */
+  /* 多个类名一起权重级别更高，叠加类名权重会相加 */
+  .main .box {
+    width: 20px;
+    height: 30px;
+    /* !important优先级最高 */
+    background-color: aquamarine;
+  }
+
+  .box {
+    background-color: green;
+  }
+  /* 如果没有父类，以body作为标准绝对
+
+    绝对定位+50%+-50% */
+  /* 绝对定位+ */
+  .center {
+    width: 100px;
+    height: 100px;
+    background-color: #753333;
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    /* position: absolute; */
+    /* top: 50%;
+        left: 50%; 
+        position: absolute;
+        transform: translate(-50%,-50%); */
+  }
+</style>
+<script>
+  //递归也是闭包的一种
+  function fun() {
+    function fu() {}
+    return fu();
+  }
+  localStorage.setItem("some", 3);
+  localStorage.getItem("some");
+  sessionStorage;
+  // session
+  // localStorage.clear();
+  // localStorage.removeItem('some');
+
+  //定时器可以用来
+  //防抖：规定时间内，只执行最后一次，可以在搜索框使用。时间过了再执行，如果有发生重新计时
+  //节流:只执行第一次，提交表单的时候。时间到了才执行一次。
+
+  //只会循环一次
+  setTimeout(fun(), 1000);
+  //无限循环，
+  setInterval(fun(), 1000);
+  //解决异步的回调地域问题，有三种状态，pidding，fullfilled，rejected。
+  // promise().then().catch().finally();
+  //async ，await，
+  let some = () => {};
+  //keep alive,vue的缓存组件，
+  //...是js的展开运算符，
+  let arr1 = [1, 2, 3];
+  let arr2 = [2, 3, ...arr1];
+  console.log(arr2);
+  // function clickul(){
+  //     console.log("我是"+document.getElementsByTagName("li"));
+  // }
+  //事件捕获
+  function clickli1() {
+    console.log("我是");
+  }
+  function clickli2() {
+    console.log("我是2");
+  }
+  function clickul() {
+    console.log("我是父类");
+  }
+  function big() {
+    //阻止事件捕获
+    // event.stopImmediatePropagation();
+    console.log("我是大盒子");
+    window.open("www.hhh.com");
+  }
+  function small() {
+    //阻止事件冒泡
+    // event.stopPropagation();
+    console.log("我是小盒子");
+    window.location.href = "/www.baidu.com";
+  }
+  function promiseConsole() {
+    const promise = new Promise((resolve, reject) => {
+      console.log(1);
+      reject("success");
+      console.log(2);
+      resolve("success");
+    });
+    promise
+      .then(() => {
+        console.log(3);
+      })
+      .catch(() => {
+        console.log(5);
+      })
+      .finally(() => {
+        console.log(6);
+      });
+    console.log(4);
+  }
+
+  // +document.getElementsByTagName('li')
+</script>

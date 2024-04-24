@@ -181,4 +181,10 @@ export default {
   padding-right: 5px;
   height: 20px;
 }
+// .van-search {
+//   background-color: red;
+// }
+.el-button {
+  background-color: red;
+}
 </style>
