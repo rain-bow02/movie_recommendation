@@ -22,12 +22,36 @@
           <li>发行时间：{{ movie.release_time }}</li>
           <li>时长：{{ movie.time }}</li>
         </ul>
+
+        <div class="toRate">
+          <button class="btnToRate" v-on:click="jumpToRatePage(movie)">
+            收藏
+          </button>
+          <button class="btnToRate" v-on:click="jumpToRatePage(movie)">
+            去评价
+          </button>
+        </div>
       </div>
     </div>
-    <div class="toRate">
-      <button class="btnToRate" v-on:click="jumpToRatePage(movie)">
-        去评价
-      </button>
+    <div class="otherMovies">
+      <el-row>
+        <el-col
+          :span="4"
+          v-for="(o, index) in 4"
+          :key="o"
+          :offset="index > 0 ? 2 : 0"
+        >
+          <el-card :body-style="{ padding: '0px' }">
+            <img
+              src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+              class="image"
+            />
+            <div style="padding: 14px">
+              <span>好吃的汉堡</span>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -169,7 +193,7 @@ export default {
   padding: 10px;
 }
 .toRate {
-  margin-top: 30px;
+  // margin-top: 30px;
 }
 .btnToRate {
   background-color: #1795bb;
@@ -181,7 +205,7 @@ export default {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 4px 20px;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
@@ -199,12 +223,20 @@ export default {
   text-align: center;
 }
 .movieInfo {
-  max-width: 309px;
+  max-width: 500px;
   margin-top: 31px;
   margin-left: 40px;
   float: left;
   word-wrap: break-word;
   text-align: left;
   line-height: 20px;
+}
+.otherMovies {
+  margin: 0px 30px;
+}
+.image {
+  width: 60px;
+  height: 60px;
+  line-height: 100px;
 }
 </style>
