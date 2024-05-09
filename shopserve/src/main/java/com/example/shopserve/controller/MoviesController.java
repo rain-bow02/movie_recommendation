@@ -22,7 +22,7 @@ public class MoviesController {
     @Autowired
     private MoviesService moviesService;
 
-    //查找所有菜品
+    /*查找所有电影*/
     @Operation(summary = "展示所有电影",
             responses = {
                     @ApiResponse(description = "返回：所有电影"),
@@ -74,10 +74,23 @@ public class MoviesController {
         return Result.ok(list);
 
     }
-//根据电影名字查询电影
+    /**
+     * 根据电影名字查询电影
+     *
+     * @param selectCondition 查询条件
+     * @return 电影列表
+     */
     @GetMapping("/search/{selectCondition}")
     public Result<List<Movies>> searchMovies(@PathVariable(name="selectCondition") String selectCondition){
         return Result.ok(this.moviesService.searchMovies(selectCondition));
     }
+
+    /**
+     * 新增电影
+     *
+     * @param id 主键
+     * @return 实例对象
+     */
+
 
 }

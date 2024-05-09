@@ -3,7 +3,8 @@
   <van-tabbar-item icon="fire-o" to="/dishes">热门电影</van-tabbar-item>
   <van-tabbar-item icon="fire-o" to="/recommend">推荐电影</van-tabbar-item>
   <van-tabbar-item icon="comment" to="/order">评分记录</van-tabbar-item> 
-  
+  <van-tabbar-item icon="apps-o" to="/order">电影管理</van-tabbar-item> 
+  <van-tabbar-item icon="setting-o" to="/order">系统管理</van-tabbar-item> 
   <van-tabbar-item icon="user-o" to="/personal"  >个人中心</van-tabbar-item>
 </van-tabbar>
 </template>

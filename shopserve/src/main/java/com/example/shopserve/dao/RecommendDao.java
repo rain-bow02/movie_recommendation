@@ -19,6 +19,5 @@ import java.util.List;
 public interface RecommendDao {
     List <Recommend> getAllRecommend();
 
-
     List<Recommend> getRecommendByUserId(int userId);
 }

@@ -41,4 +41,8 @@ public interface MoviesService {
     List<Movies> selectAllMovies();
 
     List<Movies> searchMovies(String selectCondition);
+//
+//    List<Movies> getStarredMovies(int userId);
+//
+//    List<Movies> getMoviesSeen(int userId);
 }

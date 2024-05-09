@@ -26,113 +26,6 @@
         WHERE movies.id =#{id}
     </select>
 
-<!--    &lt;!&ndash;统计总行数&ndash;&gt;-->
-<!--    <select id="count" resultType="java.lang.Long">-->
-<!--        select count(1)-->
-<!--        from movies-->
-<!--        <where>-->
-<!--            <if test="id != null">-->
-<!--                and id = #{id}-->
-<!--            </if>-->
-<!--            <if test="name != null and name != ''">-->
-<!--                and name = #{name}-->
-<!--            </if>-->
-<!--            <if test="imag != null and imag != ''">-->
-<!--                and imag = #{imag}-->
-<!--            </if>-->
-<!--            <if test="price != null">-->
-<!--                and price = #{price}-->
-<!--            </if>-->
-<!--            <if test="desc != null and desc != ''">-->
-<!--                and desc = #{desc}-->
-<!--            </if>-->
-<!--            <if test="sales != null">-->
-<!--                and sales = #{sales}-->
-<!--            </if>-->
-<!--            <if test="typeid != null">-->
-<!--                and typeId = #{typeid}-->
-<!--            </if>-->
-<!--            <if test="disc != null and disc != ''">-->
-<!--                and disc = #{disc}-->
-<!--            </if>-->
-<!--            <if test="shopid != null">-->
-<!--                and shopId = #{shopid}-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash;新增所有列&ndash;&gt;-->
-<!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
-<!--        insert into movies(name, imag, price, desc, sales, typeId, disc, shopId)-->
-<!--        values (#{name}, #{imag}, #{price}, #{desc}, #{sales}, #{typeid}, #{disc}, #{shopid})-->
-<!--    </insert>-->
-
-<!--    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">-->
-<!--        insert into dishes(name,release_time,intro, director, writers, actors, time, genre)-->
-<!--        values-->
-<!--        <foreach collection="entities" item="entity" separator=",">-->
-<!--            (#{entity.name}, #{entity.release_time}, #{entity.intro}, #{entity.director}, #{entity.writers}, #{entity.actors},-->
-<!--            #{entity.disc}, #{entity.shopid})-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
-<!--    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">-->
-<!--        insert into dishes(name, imag, price, desc, sales, typeId, disc, shopId)-->
-<!--        values-->
-<!--        <foreach collection="entities" item="entity" separator=",">-->
-<!--            (#{entity.name}, #{entity.imag}, #{entity.price}, #{entity.desc}, #{entity.sales}, #{entity.typeid},-->
-<!--            #{entity.disc}, #{entity.shopid})-->
-<!--        </foreach>-->
-<!--        on duplicate key update-->
-<!--        name = values(name),-->
-<!--        imag = values(imag),-->
-<!--        price = values(price),-->
-<!--        desc = values(desc),-->
-<!--        sales = values(sales),-->
-<!--        typeId = values(typeId),-->
-<!--        disc = values(disc),-->
-<!--        shopId = values(shopId)-->
-<!--    </insert>-->
-
-<!--    &lt;!&ndash;通过主键修改数据&ndash;&gt;-->
-<!--    <update id="update">-->
-<!--        update dishes-->
-<!--        <set>-->
-<!--            <if test="name != null and name != ''">-->
-<!--                name = #{name},-->
-<!--            </if>-->
-<!--            <if test="imag != null and imag != ''">-->
-<!--                imag = #{imag},-->
-<!--            </if>-->
-<!--            <if test="price != null">-->
-<!--                price = #{price},-->
-<!--            </if>-->
-<!--            <if test="desc != null and desc != ''">-->
-<!--                desc = #{desc},-->
-<!--            </if>-->
-<!--            <if test="sales != null">-->
-<!--                sales = #{sales},-->
-<!--            </if>-->
-<!--            <if test="typeid != null">-->
-<!--                typeId = #{typeid},-->
-<!--            </if>-->
-<!--            <if test="disc != null and disc != ''">-->
-<!--                disc = #{disc},-->
-<!--            </if>-->
-<!--            <if test="shopid != null">-->
-<!--                shopId = #{shopid},-->
-<!--            </if>-->
-<!--        </set>-->
-<!--        where id = #{id}-->
-<!--    </update>-->
-
-<!--    &lt;!&ndash;通过主键删除&ndash;&gt;-->
-<!--    <delete id="deleteById">-->
-<!--        delete-->
-<!--        from dishes-->
-<!--        where id = #{id}-->
-<!--    </delete>-->
-
 <!--    根据菜品类型ID查询菜-->
         <select id="selectByType" resultType="com.example.shopserve.entity.Movies">
             SELECT * FROM movies WHERE id IN(SELECT movie_id FROM movie_genre WHERE genre_id=${genre_id})  LIMIT 100
@@ -166,6 +59,145 @@
         </where>
     </select>
 
+    <insert id="insertMovie">
+        INSERT INTO movies(name,release_time, intro,director,writers, actors,time,genre) VALUES
+        (#{name}, #{release_time}, #{intro}, #{director}, #{writers}, #{actors}, #{time},#{genre});
+    </insert>
+    <insert id="insertMovieAvgRating">
+        INSERT INTO movie_avg_rating(name,imdb_id,release_time, intro,director,writers, actors,time,genre) VALUES
+        (#{name}, #{imdb_id}, #{release_time}, #{intro}, #{director}, #{writers}, #{actors}, #{time},#{genre});
+    </insert>
+<update id="updateMovie" parameterType="map">
+    UPDATE movies
+    <set>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="release_time != null">
+            release_time = #{release_time},
+        </if>
+        <if test="intro != null">
+            intro = #{intro},
+        </if>
+        <!-- 其他字段的类似条件 -->
+    </set>
+    WHERE imdb_id = #{imdb_id}
+</update>
+<!--    <select id="getStarredMovies" resultType="com.example.shopserve.entity.Movies">-->
+<!--        select movie_id from movie_stars where user_id=#{userId}-->
+<!--    </select>-->
+<!--    <select id="getMoviesSeen" resultType="com.example.shopserve.entity.Movies">-->
+<!--        select movie_id time from movie_stars where user_id=#{userId}-->
+<!--    </select>-->
+
     <!--    SELECT round(AVG(score),2) as avg_score FROM movie_rating WHERE movie_id=${genre_id}-->
+
+    <!--    &lt;!&ndash;统计总行数&ndash;&gt;-->
+    <!--    <select id="count" resultType="java.lang.Long">-->
+    <!--        select count(1)-->
+    <!--        from movies-->
+    <!--        <where>-->
+    <!--            <if test="id != null">-->
+    <!--                and id = #{id}-->
+    <!--            </if>-->
+    <!--            <if test="name != null and name != ''">-->
+    <!--                and name = #{name}-->
+    <!--            </if>-->
+    <!--            <if test="imag != null and imag != ''">-->
+    <!--                and imag = #{imag}-->
+    <!--            </if>-->
+    <!--            <if test="price != null">-->
+    <!--                and price = #{price}-->
+    <!--            </if>-->
+    <!--            <if test="desc != null and desc != ''">-->
+    <!--                and desc = #{desc}-->
+    <!--            </if>-->
+    <!--            <if test="sales != null">-->
+    <!--                and sales = #{sales}-->
+    <!--            </if>-->
+    <!--            <if test="typeid != null">-->
+    <!--                and typeId = #{typeid}-->
+    <!--            </if>-->
+    <!--            <if test="disc != null and disc != ''">-->
+    <!--                and disc = #{disc}-->
+    <!--            </if>-->
+    <!--            <if test="shopid != null">-->
+    <!--                and shopId = #{shopid}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+
+    <!--    &lt;!&ndash;新增所有列&ndash;&gt;-->
+    <!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+    <!--        insert into movies(name, imag, price, desc, sales, typeId, disc, shopId)-->
+    <!--        values (#{name}, #{imag}, #{price}, #{desc}, #{sales}, #{typeid}, #{disc}, #{shopid})-->
+    <!--    </insert>-->
+
+    <!--    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">-->
+    <!--        insert into dishes(name,release_time,intro, director, writers, actors, time, genre)-->
+    <!--        values-->
+    <!--        <foreach collection="entities" item="entity" separator=",">-->
+    <!--            (#{entity.name}, #{entity.release_time}, #{entity.intro}, #{entity.director}, #{entity.writers}, #{entity.actors},-->
+    <!--            #{entity.disc}, #{entity.shopid})-->
+    <!--        </foreach>-->
+    <!--    </insert>-->
+
+    <!--    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">-->
+    <!--        insert into dishes(name, imag, price, desc, sales, typeId, disc, shopId)-->
+    <!--        values-->
+    <!--        <foreach collection="entities" item="entity" separator=",">-->
+    <!--            (#{entity.name}, #{entity.imag}, #{entity.price}, #{entity.desc}, #{entity.sales}, #{entity.typeid},-->
+    <!--            #{entity.disc}, #{entity.shopid})-->
+    <!--        </foreach>-->
+    <!--        on duplicate key update-->
+    <!--        name = values(name),-->
+    <!--        imag = values(imag),-->
+    <!--        price = values(price),-->
+    <!--        desc = values(desc),-->
+    <!--        sales = values(sales),-->
+    <!--        typeId = values(typeId),-->
+    <!--        disc = values(disc),-->
+    <!--        shopId = values(shopId)-->
+    <!--    </insert>-->
+
+    <!--    &lt;!&ndash;通过主键修改数据&ndash;&gt;-->
+    <!--    <update id="update">-->
+    <!--        update dishes-->
+    <!--        <set>-->
+    <!--            <if test="name != null and name != ''">-->
+    <!--                name = #{name},-->
+    <!--            </if>-->
+    <!--            <if test="imag != null and imag != ''">-->
+    <!--                imag = #{imag},-->
+    <!--            </if>-->
+    <!--            <if test="price != null">-->
+    <!--                price = #{price},-->
+    <!--            </if>-->
+    <!--            <if test="desc != null and desc != ''">-->
+    <!--                desc = #{desc},-->
+    <!--            </if>-->
+    <!--            <if test="sales != null">-->
+    <!--                sales = #{sales},-->
+    <!--            </if>-->
+    <!--            <if test="typeid != null">-->
+    <!--                typeId = #{typeid},-->
+    <!--            </if>-->
+    <!--            <if test="disc != null and disc != ''">-->
+    <!--                disc = #{disc},-->
+    <!--            </if>-->
+    <!--            <if test="shopid != null">-->
+    <!--                shopId = #{shopid},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id = #{id}-->
+    <!--    </update>-->
+
+    <!--    &lt;!&ndash;通过主键删除&ndash;&gt;-->
+    <!--    <delete id="deleteById">-->
+    <!--        delete-->
+    <!--        from dishes-->
+    <!--        where id = #{id}-->
+    <!--    </delete>-->
+
 </mapper>
 

@@ -188,3 +188,4 @@ export default {
   background-color: red;
 }
 </style>
+../../api/movies

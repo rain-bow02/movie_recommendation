@@ -43,5 +43,16 @@ public interface MoviesDao {
 
 
     List<Movies> selectmoviesByCondition(String selectCondition);
+//    getStarredMovies
+
+    /**
+     * 根据用户名查找收藏的电影
+     *
+     *
+     * @return 电影列表
+     */
+    List<Movies> getStarredMovies(int userId);
+
+    List<Movies> getMoviesSeen(int userId);
 }
 

@@ -220,5 +220,16 @@ return movies;
         return shopList;
     }
 
+//    @Override
+//    public List<Movies> getStarredMovies(int userId) {
+//        List<Movies> shopList = this.moviesDao.getStarredMovies(userId);
+//        return shopList;
+//    }
+//
+//    @Override
+//    public List<Movies> getMoviesSeen(int userId) {
+//        List<Movies> shopList = this.moviesDao.getMoviesSeen(userId);
+//        return shopList;
+//    }
 
 }
