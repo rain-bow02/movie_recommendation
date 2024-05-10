@@ -19,7 +19,7 @@ public class Result<T> {
     @Schema(name = "msg", description = "提示信息")
     private String msg;
 
-    private Result(int status, T data, String msg){
+    public Result(int status, T data, String msg){
         this.code = status;
         this.data = data;
         this.msg = msg;

@@ -84,7 +84,7 @@ public class MoviesController {
     }
 
     /**
-     * 新增电影
+     * 新增电影，新增了电影还要新增电影_电影类型，如果没有类型还要新增类型
      *
      * @param movies
      * @return 实例对象
@@ -103,7 +103,7 @@ public class MoviesController {
     }
 
     /**
-     * 修改电影
+     * 修改电影，有修改电影类型还要新增电影_电影类型，如果没有类型还要新增类型
      *
      * @param movies
      * @return 实例对象

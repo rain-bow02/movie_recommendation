@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopserve.dao.MoviesTypeDao">
+    <insert id="saveStars" parameterType="com.example.shopserve.entity.Stars">
+        INSERT INTO movie_stars( movie_id, user_id)
+        VALUES ( #{movie_id}, #{user_id})
+    </insert>
+    <delete id="deleteStars">
+        delete
+        from movie_stars
+        where movie_id = #{movie_id} and user_id= #{user_id}
+    </delete>
+
+    <select id="getStarredMovies" resultType="com.example.shopserve.entity.Movies">
+        SELECT m.*
+        FROM movies m
+                 JOIN movie_stars ms ON m.id = ms.movie_id
+        WHERE ms.user_id = #{userId}
+    </select>
+    <select id="getMoviesTypePagination" resultType="com.example.shopserve.entity.MoviesType">
+        SELECT * FROM genre LIMIT #{offset}, #{size}
+    </select>
+</mapper>
+
