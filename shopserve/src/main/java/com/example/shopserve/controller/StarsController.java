@@ -1,16 +1,10 @@
 package com.example.shopserve.controller;
 
 import com.example.shopserve.entity.Movies;
-import com.example.shopserve.entity.Rating;
 import com.example.shopserve.entity.Stars;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.StarsService;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +24,7 @@ public class StarsController {
     public Result<Stars> saveStars(@RequestBody Stars stars){
          starsService.saveStars(stars);
 
-        return Result.ok(stars);
+        return Result.ok(stars, "修改成功");
 
     }
     //2删除id收藏
@@ -38,7 +32,7 @@ public class StarsController {
     public Result deleteStars(@RequestBody Stars stars){
         starsService.deleteStars(stars);
 
-        return Result.ok("取消收藏成功");
+        return Result.ok("取消收藏成功", "修改成功");
 
     }
     //3得到某一位用户收藏过的所有电影
@@ -47,7 +41,7 @@ public class StarsController {
         System.out.println(userId+"useriduserid");
         List<Movies> list = starsService.getStarredMovies(userId);
 
-        return Result.ok(list);
+        return Result.ok(list, "修改成功");
 
     }
 

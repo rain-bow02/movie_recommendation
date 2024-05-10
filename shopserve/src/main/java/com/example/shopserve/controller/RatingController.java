@@ -2,19 +2,15 @@ package com.example.shopserve.controller;
 
 
 import com.example.shopserve.entity.Rating;
-import com.example.shopserve.entity.User;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.RatingService;
-import com.example.shopserve.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/rating")
@@ -32,7 +28,7 @@ public class RatingController {
 //            sqlSession.rollback();
 //            sqlSession.close();
             System.out.println("RatingControllerokok");
-            return Result.ok(rating);
+            return Result.ok(rating, "修改成功");
 //        }
 //        catch (Exception e){
 //            return Result.error(404,"登录失败！");
@@ -48,7 +44,7 @@ public class RatingController {
             System.out.println(userId+"userid");
             List<Rating> list = ratingService.showRatingByUserId(userId);
             System.out.println(list);
-            return Result.ok(list);
+            return Result.ok(list, "修改成功");
     }
 
 //    public Map<Integer, Map<Integer,Integer>> RshowRatingByMovieId(@PathVariable(name="userId") int userId) {

@@ -43,16 +43,16 @@ public interface MoviesDao {
 
 
     List<Movies> selectmoviesByCondition(String selectCondition);
-//    getStarredMovies
+//    selectmoviesByAllName
+    List<Movies> selectmoviesByAllName(String selectCondition);
 
     /**
-     * 根据用户名查找收藏的电影
-     *
-     *
-     * @return 电影列表
+     * 插入电影
      */
-    List<Movies> getStarredMovies(int userId);
+    void insertMovie(Movies movies);
 
-    List<Movies> getMoviesSeen(int userId);
+    void updateMovie(Movies movies,int id);
+
+    void deleteMovie(int id);
 }
 

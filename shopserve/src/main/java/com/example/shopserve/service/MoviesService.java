@@ -41,6 +41,14 @@ public interface MoviesService {
     List<Movies> selectAllMovies();
 
     List<Movies> searchMovies(String selectCondition);
+
+    List<Movies> searchMoviesByAllName(String selectCondition);
+
+    void insertMovie(Movies movies);
+
+    void updateMovie(Movies movies,int id);
+
+    void deleteMovie(int id);
 //
 //    List<Movies> getStarredMovies(int userId);
 //

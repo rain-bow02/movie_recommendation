@@ -51,12 +51,10 @@
     <select id="showRatingByUserId" resultMap="RatingMap">
         SELECT a.id,a.score,a.comment,a.movie_id,a.user_id,
                b.name, b.imdb_id, b.release_time, b.intro,b.director, b.writers, b.actors, b.time,
-               b.genre ,Round(c.avg_rating,2) as avg_rating
+               b.genre ,Round(b.avg_rating,2) as avg_rating
         FROM movies b
                  right join movie_rating a
                             on a.movie_id = b.id
-                 left join movie_avg_rating c
-                           on b.imdb_id = c.movie_id
         WHERE a.user_id=#{user_id}
 
     </select>

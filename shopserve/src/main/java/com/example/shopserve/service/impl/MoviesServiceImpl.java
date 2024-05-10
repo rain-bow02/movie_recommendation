@@ -219,6 +219,27 @@ return movies;
         List<Movies> shopList = this.moviesDao.selectmoviesByCondition(selectCondition);
         return shopList;
     }
+    @Override
+    public List<Movies> searchMoviesByAllName(String selectCondition) {
+        List<Movies> shopList = this.moviesDao.selectmoviesByAllName(selectCondition);
+        return shopList;
+    }
+
+    @Override
+    public void insertMovie(Movies movies) {
+        this.moviesDao.insertMovie(movies);
+    }
+
+    @Override
+    public void updateMovie(Movies movies,int id) {
+        this.moviesDao.updateMovie(movies,id);
+    }
+
+    @Override
+    public void deleteMovie(int id) {
+        this.moviesDao.deleteMovie(id);
+    }
+}
 
 //    @Override
 //    public List<Movies> getStarredMovies(int userId) {
@@ -232,4 +253,4 @@ return movies;
 //        return shopList;
 //    }
 
-}
+

@@ -20,9 +20,8 @@
                movies.name,movies.imdb_id,
                movies.release_time,
                movies.intro, movies.director, movies.writers, movies.actors, movies.time,
-               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
+               movies.genre, Round(movies.avg_rating,2) as avg_rating
         FROM movies
-                 INNER JOIN movie_avg_rating ON movies.imdb_id = movie_avg_rating.movie_id
         WHERE movies.id =#{id}
     </select>
 
@@ -37,8 +36,8 @@
                movies.name,movies.imdb_id,
                movies.release_time,
                movies.intro, movies.director, movies.writers, movies.actors, movies.time,
-               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
-        FROM movie_avg_rating join movies on movies.imdb_id = movie_avg_rating.movie_id LIMIT 200
+               movies.genre, Round(movies.avg_rating,2) as avg_rating
+         LIMIT 200
     </select>
     <select id="queryByUserId" resultType="com.example.shopserve.entity.Rating">
         select movie_id,score FROM movie_rating where user_id=#{user_id}
@@ -48,9 +47,8 @@
                movies.name,movies.imdb_id,
                movies.release_time,
                movies.intro, movies.director, movies.writers, movies.actors, movies.time,
-               movies.genre, Round(movie_avg_rating.avg_rating,2) as avg_rating
+               movies.genre, Round(movies.avg_rating,2) as avg_rating
         FROM movies
-                 INNER JOIN movie_avg_rating ON movies.imdb_id = movie_avg_rating.movie_id
         <where>
             <if test="selectCondition!=null and selectCondition!='' ">
                 AND movies.name LIKE CONCAT('%',#{selectCondition},'%')
@@ -58,32 +56,68 @@
 
         </where>
     </select>
+    <select id="selectmoviesByAllName" resultMap="MoviesMap">
+        SELECT movies.id,
+        movies.name,movies.imdb_id,
+        movies.release_time,
+        movies.intro, movies.director, movies.writers, movies.actors, movies.time,
+        movies.genre, Round(movies.avg_rating,2) as avg_rating
+        FROM movies
+        <where>
+            <if test="selectCondition!=null and selectCondition!='' ">
+                AND movies.name = #{selectCondition};
 
+            </if>
+
+        </where>
+    </select>
     <insert id="insertMovie">
         INSERT INTO movies(name,release_time, intro,director,writers, actors,time,genre) VALUES
         (#{name}, #{release_time}, #{intro}, #{director}, #{writers}, #{actors}, #{time},#{genre});
     </insert>
-    <insert id="insertMovieAvgRating">
-        INSERT INTO movie_avg_rating(name,imdb_id,release_time, intro,director,writers, actors,time,genre) VALUES
-        (#{name}, #{imdb_id}, #{release_time}, #{intro}, #{director}, #{writers}, #{actors}, #{time},#{genre});
-    </insert>
 <update id="updateMovie" parameterType="map">
     UPDATE movies
     <set>
-        <if test="name != null">
-            name = #{name},
+        <if test="movies.name != null">
+            name = #{movies.name},
         </if>
-        <if test="release_time != null">
-            release_time = #{release_time},
+        <if test="movies.imdb_id != null">
+            imdb_id = #{movies.imdb_id},
         </if>
-        <if test="intro != null">
-            intro = #{intro},
+        <if test="movies.release_time != null">
+            release_time = #{movies.release_time},
         </if>
+        <if test="movies.intro != null">
+            intro = #{movies.intro},
+        </if>
+        <if test="movies.director != null">
+            director = #{movies.director},
+        </if>
+        <if test="movies.writers != null">
+            writers = #{movies.writers},
+        </if>
+        <if test="movies.actors != null">
+            actors = #{movies.actors},
+        </if>
+        <if test="movies.time != null">
+            time = #{movies.time},
+        </if>
+        <if test="movies.genre != null">
+            genre = #{movies.genre},
+        </if>
+        <if test="movies.avg_rating != null">
+            avg_rating = #{movies.avg_rating},
+        </if>
+
         <!-- 其他字段的类似条件 -->
     </set>
-    WHERE imdb_id = #{imdb_id}
+    WHERE id = #{id}
 </update>
-<!--    <select id="getStarredMovies" resultType="com.example.shopserve.entity.Movies">-->
+    <delete id="deleteMovie">
+        DELETE FROM movies WHERE id = #{id}
+    </delete>
+
+    <!--    <select id="getStarredMovies" resultType="com.example.shopserve.entity.Movies">-->
 <!--        select movie_id from movie_stars where user_id=#{userId}-->
 <!--    </select>-->
 <!--    <select id="getMoviesSeen" resultType="com.example.shopserve.entity.Movies">-->

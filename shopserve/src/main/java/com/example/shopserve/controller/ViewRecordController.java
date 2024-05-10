@@ -1,7 +1,6 @@
 package com.example.shopserve.controller;
 
 import com.example.shopserve.entity.Movies;
-import com.example.shopserve.entity.Stars;
 import com.example.shopserve.entity.ViewRecord;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.ViewRecordService;
@@ -26,7 +25,7 @@ public class ViewRecordController {
     public Result<ViewRecord> saveViewRecord(@RequestBody ViewRecord viewRecord){
         viewRecordService.saveViewRecord(viewRecord);
 
-        return Result.ok(viewRecord);
+        return Result.ok(viewRecord, "修改成功");
 
     }
     //2删除id浏览记录
@@ -34,7 +33,7 @@ public class ViewRecordController {
     public Result deleteViewRecord(@RequestBody ViewRecord viewRecord){
         viewRecordService.deleteViewRecord(viewRecord);
 
-        return Result.ok("取消收藏成功");
+        return Result.ok("取消收藏成功", "修改成功");
 
     }
     //得到某一位用户最近浏览过的所有电影
@@ -43,7 +42,7 @@ public class ViewRecordController {
         System.out.println(userId+"useriduserid");
         List<Movies> list = viewRecordService.getMoviesSeen(userId);
 
-        return Result.ok(list);
+        return Result.ok(list, "修改成功");
 
     }
 

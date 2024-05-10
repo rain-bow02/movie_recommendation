@@ -23,7 +23,7 @@ public class userController {
         try{
             user= userService.queryByName(name);
             if(user.getPassword().equals(password)){
-                return Result.ok(user);
+                return Result.ok(user, "修改成功");
             }
             else{
                 return Result.error(500,"密码错误，请重新输入！");
@@ -36,7 +36,7 @@ public class userController {
     @GetMapping("/userShow/{id}")
     public Result<User> queryUserDetail(@PathVariable("id") Integer userId){
         System.out.println(userService.queryById(userId));
-        return Result.ok(userService.queryById(userId));
+        return Result.ok(userService.queryById(userId), "修改成功");
     }
     @PostMapping("/register")
     public Result<String>  register(@RequestBody User user) throws SQLException, ClassNotFoundException {
@@ -47,11 +47,11 @@ public class userController {
             if (user1 == null) {
                 System.out.println("user的昵称" + user.getName());
                 userService.insert(user);
-                return Result.ok("注册成功！");
+                return Result.ok("注册成功！", "修改成功");
             } else {
                 return Result.error(404,"该用户已存在！");
             }
-        
+
     }
 
 }

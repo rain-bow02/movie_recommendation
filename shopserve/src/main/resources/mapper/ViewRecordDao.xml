@@ -19,5 +19,10 @@
         ORDER BY m.time ASC
         LIMIT 100
     </select>
+    <update  id="updateMoviesSeenTime" parameterType="map">
+        UPDATE movie_seen
+        SET time = NOW()
+        WHERE movie_id = #{movie_id} and user_id= #{user_id}
+    </update>
 </mapper>
 

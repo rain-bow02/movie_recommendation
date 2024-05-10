@@ -28,6 +28,9 @@ public class Result<T> {
     public static<E> Result<E> ok(E data){
         return new Result<>(HttpStatus.OK.value(), data, "OK");
     }
+    public static<E> Result<E> ok(E data, String msg){
+        return new Result<>(HttpStatus.OK.value(), data, msg);
+    }
 
     public static<E> Result<E> error(){
         return new Result<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, "服务内部错误");

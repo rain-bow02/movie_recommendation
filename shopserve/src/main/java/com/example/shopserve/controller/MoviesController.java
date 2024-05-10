@@ -3,7 +3,6 @@ package com.example.shopserve.controller;
 import com.example.shopserve.entity.Movies;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.MoviesService;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -37,8 +36,7 @@ public class MoviesController {
             return Result.error(500,"服务器繁忙，请稍后重试");
         }
     }
-
-
+    /*根据电影类型查找电影*/
     @Operation(summary = "展示电影类型的所有电影",
             responses = {
                     @ApiResponse(description = "返回：当前类型的所有电影"),
@@ -88,9 +86,58 @@ public class MoviesController {
     /**
      * 新增电影
      *
-     * @param id 主键
+     * @param movies
      * @return 实例对象
      */
+    @PostMapping("/insert")
+    public Result<String> insertMovie(@RequestBody Movies movies)  {
+        List<Movies> moviesList= this.moviesService.searchMoviesByAllName(movies.getName());
+        if(moviesList.size()>0){
+            return Result.error(500,"新增失败，电影名称已存在");
+        }
+        else{
+            this.moviesService.insertMovie(movies);
+            return Result.ok("新增成功");
+        }
 
+    }
+
+    /**
+     * 修改电影
+     *
+     * @param movies
+     * @return 实例对象
+     */
+    @PostMapping("/update/{id}")
+    public Result<Movies> updateMovie(@RequestBody Movies movies, @PathVariable int id)  {
+        Movies movie= this.moviesService.queryById(id);
+        if(movie == null){
+            return Result.error(500,"修改失败，电影不存在");
+        }
+        else{
+            this.moviesService.updateMovie(movies,id);
+            Movies movie1= this.moviesService.queryById(id);
+            return Result.ok(movie1,"修改成功");
+        }
+
+    }
+
+    /**
+     * 删除电影
+     *
+     * @param movies
+     * @return 实例对象
+     */
+    @PostMapping("/delete/{id}")
+    public Result<String> DeleteMovie( @PathVariable int id)  {
+        Movies movie= this.moviesService.queryById(id);
+        if(movie == null){
+            return Result.error(500,"删除失败，电影不存在");
+        }
+        else{
+            this.moviesService.deleteMovie(id);
+            return Result.ok("删除成功");
+        }
+    }
 
 }
