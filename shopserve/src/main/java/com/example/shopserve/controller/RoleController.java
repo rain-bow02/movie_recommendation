@@ -31,7 +31,7 @@ public class RoleController {
             roleService.insert(role);
             return Result.ok(null, "添加成功");
         } else {
-            return Result.error(404,"该用户已存在！");
+            return Result.error(404,"角色已存在！");
         }
 
     }
@@ -41,7 +41,7 @@ public class RoleController {
         System.out.println(role);
         user1 = roleService.queryById(id);
         if (user1 == null) {
-            return Result.error(500,"该用户不存在！");
+            return Result.error(500,"该角色不存在！");
         } else {
             if(role.getId()==null) role.setId(id);
             System.out.println("user的昵称" + role.getName());

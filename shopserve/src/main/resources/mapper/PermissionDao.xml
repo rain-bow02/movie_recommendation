@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopserve.dao.PermissionDao">
+
+
+    <!--查询单个-->
+    <select id="queryById"  resultType="com.example.shopserve.entity.Permission">
+        select *
+        from permission
+        where id = #{id}
+    </select>
+    <!--查询单个-->
+    <select id="queryByName"  resultType="com.example.shopserve.entity.Permission">
+    select *
+    from `permission`
+    where name = #{name}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from permission
+    </select>
+    <select id="getUserPage"  resultType="com.example.shopserve.entity.Permission">
+        select *
+        from permission LIMIT #{offset}, #{size}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into permission(name,code_name)
+        values (#{name},#{code_name})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into permission(name,code_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name},#{entity.code_name})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into permission(name,code_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name},#{entity.code_name})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        code_name= values(code_name)
+    </insert>
+    <insert id="insertRole_user">
+        insert into role_permission(role_id,permission_id) value(#{role_id},#{permission_id})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update permission
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="code_name != null and code_name != ''">
+                code_name = #{code_name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from permission
+        where id = #{id}
+    </delete>
+    <delete id="deleteRole_user">
+        delete
+        from role_permission where role_id = #{role_id}
+    </delete>
+    <delete id="deleteUser_role">
+        delete
+        from role_permission where permission_id = #{permission_id}</delete>
+    <!--insert into role() values("系统管理员")-->
+</mapper>
+
