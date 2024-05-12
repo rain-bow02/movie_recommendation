@@ -1,5 +1,6 @@
 package com.example.shopserve.service.impl;
 
+import com.example.shopserve.dao.RoleDao;
 import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.User;
 import com.example.shopserve.dao.UserDao;
@@ -20,6 +21,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+    @Resource
+    private RoleDao roleDao;
 
     /**
      * 通过ID查询单条数据
@@ -77,6 +80,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean deleteById(Integer id) {
+        this.roleDao.deleteUser_role(id);
         return this.userDao.deleteById(id) > 0;
     }
 

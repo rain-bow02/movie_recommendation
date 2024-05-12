@@ -1,12 +1,9 @@
 package com.example.shopserve.service.impl;
 
 import com.example.shopserve.dao.RoleDao;
-import com.example.shopserve.dao.UserDao;
-import com.example.shopserve.entity.MoviesType;
 import com.example.shopserve.entity.Role;
 import com.example.shopserve.entity.User;
 import com.example.shopserve.service.RoleService;
-import com.example.shopserve.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -78,8 +75,9 @@ public class RoleServiceImpl implements RoleService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
-        return this.roleDao.deleteById(id) > 0;
+    public boolean deleteById(Integer role_id) {
+        this.deleteRole_user(role_id);
+        return this.roleDao.deleteById(role_id) > 0;
     }
 
     @Override
@@ -112,14 +110,18 @@ public class RoleServiceImpl implements RoleService {
     }
     @Override
     public void insertRole_user(int user_id, int role_id) {
-        int relation=deleteRelation(user_id);
+        int relation=deleteUser_role(user_id);
         System.out.println("删除了" +relation);
         this.roleDao.insertRole_user(user_id, role_id);
     }
 
     @Override
-    public int deleteRelation(int user_id) {
-        return this.roleDao.deleteRole_user(user_id);
+    public int deleteUser_role(int user_id) {
+        return this.roleDao.deleteUser_role(user_id);
+    }
+    @Override
+    public void deleteRole_user(int role_id) {
+        this.roleDao.deleteRole_user(role_id);
     }
 
 }

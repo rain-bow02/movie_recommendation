@@ -84,6 +84,8 @@ public interface RoleDao {
 
     void insertRole_user(int user_id, int role_id);
 
-    int deleteRole_user(int user_id);
+    int deleteRole_user(int role_id);
+
+    int deleteUser_role(int user_id);
 }
 

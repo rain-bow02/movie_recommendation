@@ -67,5 +67,7 @@ public interface RoleService {
 
     void insertRole_user(int user_id, int role_id);
 
-    int deleteRelation(int movieId);
+    int deleteUser_role(int user_id);
+
+    void deleteRole_user(int role_id);
 }

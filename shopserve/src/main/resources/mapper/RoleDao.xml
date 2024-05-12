@@ -72,8 +72,11 @@
     </delete>
     <delete id="deleteRole_user">
         delete
-        from user_role where user_id = #{user_id}
+        from user_role where role_id = #{role_id}
     </delete>
+    <delete id="deleteUser_role">
+        delete
+        from user_role where user_id = #{user_id}</delete>
     <!--insert into role() values("系统管理员")-->
 </mapper>
 

@@ -57,7 +57,7 @@ public class RoleController {
         user1 = roleService.queryById(id);
         if (user1 == null) {
             return Result.error(500,"角色不存在！");
-        } else {
+        } else {//删除角色，删除角色用户，删除角色权限
             roleService.deleteById(id);
             return Result.ok(null, "删除成功");
         }
