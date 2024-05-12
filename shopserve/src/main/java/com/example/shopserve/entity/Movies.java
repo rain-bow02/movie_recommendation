@@ -58,4 +58,48 @@ public class Movies  implements Serializable {
     public String getGenre() {
         return genre;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImdb_id(Integer imdb_id) {
+        this.imdb_id = imdb_id;
+    }
+
+    public void setRelease_time(String release_time) {
+        this.release_time = release_time;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setWriters(String writers) {
+        this.writers = writers;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setAvg_rating(double avg_rating) {
+        this.avg_rating = avg_rating;
+    }
 }

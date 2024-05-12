@@ -22,9 +22,15 @@ public interface StarsDao {
      *
      * @return 电影列表
      */
-    List<Movies> getStarredMovies(int userId);
+    List<Movies> getStarredMovies(int user_id,int offset, int size);
 
     void saveStars(Stars stars);
 
     void deleteStars(Stars stars);
+
+    void deleteMovies(int movie_id);
+
+    Stars hasStars(Stars stars);
+
+    int selectStarredMoviesLength(int userId);
 }

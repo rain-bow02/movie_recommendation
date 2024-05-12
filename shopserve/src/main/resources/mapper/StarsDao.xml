@@ -10,12 +10,28 @@
         from movie_stars
         where movie_id = #{movie_id} and user_id= #{user_id}
     </delete>
+    <delete id="deleteMovies">
+        delete
+        from movie_stars
+        where movie_id = #{movie_id}
+    </delete>
 
     <select id="getStarredMovies" resultType="com.example.shopserve.entity.Movies">
         SELECT m.*
         FROM movies m
                  JOIN movie_stars ms ON m.id = ms.movie_id
-        WHERE ms.user_id = #{userId}
+        WHERE ms.user_id = #{user_id}
+            LIMIT #{offset}, #{size}
+    </select>
+    <select id="hasStars" resultType="com.example.shopserve.entity.Stars">
+        select * from movie_stars
+        where movie_id = #{movie_id} and user_id= #{user_id}
+    </select>
+    <select id="selectStarredMoviesLength" resultType="java.lang.Integer">
+        SELECT  COUNT(*)
+        FROM movies m
+                 JOIN movie_stars ms ON m.id = ms.movie_id
+        WHERE ms.user_id = #{user_id}
     </select>
 </mapper>
 

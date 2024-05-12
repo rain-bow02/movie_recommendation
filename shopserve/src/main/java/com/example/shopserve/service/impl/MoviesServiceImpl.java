@@ -4,7 +4,6 @@ import com.example.shopserve.dao.MoviesDao;
 import com.example.shopserve.dao.RatingDao;
 import com.example.shopserve.dao.RecommendDao;
 import com.example.shopserve.entity.Movies;
-import com.example.shopserve.entity.Rating;
 import com.example.shopserve.entity.Recommend;
 import com.example.shopserve.result.SimilarityUtil;
 import com.example.shopserve.service.MoviesService;
@@ -205,18 +204,22 @@ return movies;
 
 
     @Override
-    public List<Movies> showInTypeMovies(String typeId) {
-        return this.moviesDao.selectByType(typeId);
+    public List<Movies> showInTypeMovies(int typeId, int page) {
+        int offset=(page-1)*20;
+//        return shopList;
+        return this.moviesDao.selectByType(typeId,offset,20);
     }
 
     @Override
     public List<Movies> selectAllMovies() {
         return this.moviesDao.queryAllMovies();
+
     }
 
     @Override
-    public List<Movies> searchMovies(String selectCondition) {
-        List<Movies> shopList = this.moviesDao.selectmoviesByCondition(selectCondition);
+    public List<Movies> searchMovies(String selectCondition, int page) {
+        int offset=(page-1)*20;
+        List<Movies> shopList = this.moviesDao.selectMoviesByCondition(selectCondition,offset,20);
         return shopList;
     }
     @Override
@@ -228,6 +231,7 @@ return movies;
     @Override
     public void insertMovie(Movies movies) {
         this.moviesDao.insertMovie(movies);
+
     }
 
     @Override
@@ -238,6 +242,31 @@ return movies;
     @Override
     public void deleteMovie(int id) {
         this.moviesDao.deleteMovie(id);
+    }
+
+    @Override
+    public int selectMoviesLength() {
+        int length = this.moviesDao.selectMoviesLength();
+        return length;
+    }
+
+    @Override
+    public List<Movies> selectMoviesPage(int page) {
+        int offset=(page-1)*20;
+        List<Movies> shopList = this.moviesDao.selectMoviesPage(offset,20);
+        return shopList;
+    }
+
+    @Override
+    public int selectInTypeMoviesLength(int typeId) {
+        int length = this.moviesDao.selectInTypeMoviesLength(typeId);
+        return length;
+    }
+
+    @Override
+    public int searchMoviesLength(String selectCondition) {
+        int length = this.moviesDao.searchMoviesLength(selectCondition);
+        return length;
     }
 }
 

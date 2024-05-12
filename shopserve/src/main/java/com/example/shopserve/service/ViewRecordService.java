@@ -11,9 +11,17 @@ import java.util.Map;
 @Transactional
 public interface ViewRecordService {
 
-    List<Movies> getMoviesSeen(int userId);
+    List<Movies> getMoviesSeen(int userId, int page);
 
     void saveViewRecord(ViewRecord viewRecord);
 
     void deleteViewRecord(ViewRecord viewRecord);
+
+    void deleteMovies(int movieId);
+
+    ViewRecord hasViewRecord(ViewRecord viewRecord);
+
+    void updateViewRecord(ViewRecord viewRecord);
+
+    int selectMoviesSeenLength(int userId);
 }

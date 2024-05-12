@@ -2,7 +2,6 @@ package com.example.shopserve.dao;
 import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.ViewRecord;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,9 +14,17 @@ import java.util.List;
 @Mapper
 public interface ViewRecordDao {
 
-    List<Movies> getMoviesSeen(int userId);
+    List<Movies> getMoviesSeen(int user_id,int offset, int size);
 
     void saveViewRecord(ViewRecord viewRecord);
 
     void deleteViewRecord(ViewRecord viewRecord);
+
+    void deleteMovies(int movieId);
+
+    ViewRecord hasViewRecord(ViewRecord viewRecord);
+
+    void updateViewRecord(ViewRecord viewRecord);
+
+    int selectMoviesSeenLength(int user_id);
 }

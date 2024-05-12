@@ -27,7 +27,7 @@
 
 <!--    根据菜品类型ID查询菜-->
         <select id="selectByType" resultType="com.example.shopserve.entity.Movies">
-            SELECT * FROM movies WHERE id IN(SELECT movie_id FROM movie_genre WHERE genre_id=${genre_id})  LIMIT 100
+            SELECT * FROM movies WHERE id IN(SELECT movie_id FROM movie_genre WHERE genre_id=${typeId})  LIMIT  #{offset}, #{size}
         </select>
 
 
@@ -37,12 +37,13 @@
                movies.release_time,
                movies.intro, movies.director, movies.writers, movies.actors, movies.time,
                movies.genre, Round(movies.avg_rating,2) as avg_rating
+        from movies
          LIMIT 200
     </select>
     <select id="queryByUserId" resultType="com.example.shopserve.entity.Rating">
         select movie_id,score FROM movie_rating where user_id=#{user_id}
     </select>
-    <select id="selectmoviesByCondition" resultMap="MoviesMap">
+    <select id="selectMoviesByCondition" resultMap="MoviesMap">
         SELECT movies.id,
                movies.name,movies.imdb_id,
                movies.release_time,
@@ -67,6 +68,33 @@
             <if test="selectCondition!=null and selectCondition!='' ">
                 AND movies.name = #{selectCondition};
 
+            </if>
+
+        </where>
+        LIMIT  #{offset}, #{size}
+    </select>
+    <select id="selectMoviesLength" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM movies
+    </select>
+    <select id="selectMoviesPage" resultType="com.example.shopserve.entity.Movies">
+        SELECT movies.id,
+               movies.name,movies.imdb_id,
+               movies.release_time,
+               movies.intro, movies.director, movies.writers, movies.actors, movies.time,
+               movies.genre, Round(movies.avg_rating,2) as avg_rating
+               from movies
+
+            LIMIT  #{offset}, #{size}
+    </select>
+    <select id="selectInTypeMoviesLength" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM movies WHERE id IN(SELECT movie_id FROM movie_genre WHERE genre_id=${typeId})
+    </select>
+    <select id="searchMoviesLength" resultType="java.lang.Integer">
+        SELECT  COUNT(*)
+        FROM movies
+        <where>
+            <if test="selectCondition!=null and selectCondition!='' ">
+                AND movies.name LIKE CONCAT('%',#{selectCondition},'%')
             </if>
 
         </where>

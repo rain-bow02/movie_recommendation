@@ -10,16 +10,36 @@
         from movie_seen
         where movie_id = #{movie_id} and user_id= #{user_id}
     </delete>
+    <delete id="deleteMovies">
+        delete
+        from movie_seen
+        where movie_id = #{movie_id}
+    </delete>
 
     <select id="getMoviesSeen" resultType="com.example.shopserve.entity.Movies">
         SELECT m.*
         FROM movies m
                  JOIN movie_seen ms ON m.id = ms.movie_id
-        WHERE ms.user_id = #{userId}
+        WHERE ms.user_id = #{user_id}
         ORDER BY m.time ASC
-        LIMIT 100
+            LIMIT #{offset}, #{size}
+    </select>
+    <select id="hasViewRecord" resultType="com.example.shopserve.entity.ViewRecord">
+        SELECT * FROM movie_seen  WHERE movie_id = #{movie_id} and user_id= #{user_id}
+    </select>
+    <select id="selectMoviesSeenLength" resultType="java.lang.Integer">
+        SELECT  COUNT(*)
+        FROM movies m
+                 JOIN movie_seen ms ON m.id = ms.movie_id
+        WHERE ms.user_id = #{user_id}
+        ORDER BY m.time ASC
     </select>
     <update  id="updateMoviesSeenTime" parameterType="map">
+        UPDATE movie_seen
+        SET time = NOW()
+        WHERE movie_id = #{movie_id} and user_id= #{user_id}
+    </update>
+    <update id="updateViewRecord">
         UPDATE movie_seen
         SET time = NOW()
         WHERE movie_id = #{movie_id} and user_id= #{user_id}

@@ -30,7 +30,7 @@ public interface MoviesDao {
      * @param typeId
      * @return
      */
-    List<Movies>  selectByType(String typeId);
+    List<Movies>  selectByType(int typeId,int offset, int size);
 
 
     /**
@@ -42,7 +42,7 @@ public interface MoviesDao {
     List<Movies> queryAllMovies();
 
 
-    List<Movies> selectmoviesByCondition(String selectCondition);
+    List<Movies> selectMoviesByCondition(String selectCondition,int offset, int size);
 //    selectmoviesByAllName
     List<Movies> selectmoviesByAllName(String selectCondition);
 
@@ -54,5 +54,13 @@ public interface MoviesDao {
     void updateMovie(Movies movies,int id);
 
     void deleteMovie(int id);
+
+    int selectMoviesLength();
+
+    List<Movies> selectMoviesPage(int offset, int size);
+
+    int selectInTypeMoviesLength(int typeId);
+
+    int searchMoviesLength(String selectCondition);
 }
 

@@ -15,46 +15,27 @@ import java.util.List;
 @Mapper
 public interface MoviesTypeDao {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    Movies queryById(Integer id);
-
-
-
-    /**
-     * 根据菜品类型id查询菜品
-     * @param typeId
-     * @return
-     */
-    List<Movies>  selectByType(String typeId);
-
-
-    /**
-     * 查找菜品信息
-     *
-     *
-     * @return 菜品列表
-     */
-    List<Movies> queryAllMovies();
-
-
-    List<Movies> selectmoviesByCondition(String selectCondition);
-//    selectmoviesByAllName
-    List<Movies> selectmoviesByAllName(String selectCondition);
-
-    /**
-     * 插入电影
-     */
-    void insertMovie(Movies movies);
-
-    void updateMovie(Movies movies,int id);
-
-    void deleteMovie(int id);
 
     List<MoviesType> getMoviesTypePagination(int offset, int size);
+
+    List<MoviesType> getAllTypes();
+
+    int selectTypesLength();
+
+    MoviesType getMoviesTypeByName(String name);
+
+    void insertType(MoviesType moviesType);
+
+    MoviesType getMoviesTypeById(int id);
+
+    void updateType(MoviesType moviesType);
+
+    void deleteType(int id);
+
+    void insertType_movie(int movieId, int typeId);
+
+    int selectRelation(int movieId, int typeId);
+
+    int deleteRelation(int movieId);
 }
 

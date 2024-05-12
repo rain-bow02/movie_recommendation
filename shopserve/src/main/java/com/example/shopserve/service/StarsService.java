@@ -5,15 +5,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
 public interface StarsService {
 
-    List<Movies> getStarredMovies(int userId);
+    List<Movies> getStarredMovies(int userId, int page);
 
     void saveStars(Stars stars);
 
     void deleteStars(Stars stars);
+
+    void deleteMovies(int movieId);
+
+    Stars hasStars(Stars stars);
+
+    int selectStarredMoviesLength(int userId);
 }

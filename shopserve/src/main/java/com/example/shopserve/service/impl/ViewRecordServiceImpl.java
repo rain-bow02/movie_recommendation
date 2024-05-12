@@ -31,8 +31,9 @@ public class ViewRecordServiceImpl implements ViewRecordService {
     private MoviesDao moviesDao;
 
     @Override
-    public List<Movies> getMoviesSeen(int userId) {
-        List<Movies> shopList = this.viewRecordDao.getMoviesSeen(userId);
+    public List<Movies> getMoviesSeen(int userId,int page) {
+        int offset=(page-1)*20;
+        List<Movies> shopList = this.viewRecordDao.getMoviesSeen(userId,offset,20);
         return shopList;
     }
 
@@ -44,5 +45,26 @@ public class ViewRecordServiceImpl implements ViewRecordService {
     @Override
     public void deleteViewRecord(ViewRecord viewRecord) {
         this.viewRecordDao.deleteViewRecord(viewRecord);
+    }
+
+    @Override
+    public void deleteMovies(int movieId) {
+        this.viewRecordDao.deleteMovies(movieId);
+    }
+
+    @Override
+    public ViewRecord hasViewRecord(ViewRecord viewRecord) {
+        return this.viewRecordDao.hasViewRecord(viewRecord);
+    }
+
+    @Override
+    public void updateViewRecord(ViewRecord viewRecord) {
+         this.viewRecordDao.updateViewRecord(viewRecord);
+    }
+
+    @Override
+    public int selectMoviesSeenLength(int userId) {
+        int length = this.viewRecordDao.selectMoviesSeenLength(userId);
+        return length;
     }
 }

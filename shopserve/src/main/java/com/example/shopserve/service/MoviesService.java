@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -32,15 +31,16 @@ public interface MoviesService {
     /**
      * 展示属于该菜品的菜肴
      * @param typeId
+     * @param page
      * @return
      */
-    List<Movies> showInTypeMovies(String typeId);
+    List<Movies> showInTypeMovies(int typeId, int page);
 
 
 
     List<Movies> selectAllMovies();
 
-    List<Movies> searchMovies(String selectCondition);
+    List<Movies> searchMovies(String selectCondition, int page);
 
     List<Movies> searchMoviesByAllName(String selectCondition);
 
@@ -49,6 +49,14 @@ public interface MoviesService {
     void updateMovie(Movies movies,int id);
 
     void deleteMovie(int id);
+
+    int selectMoviesLength();
+
+    List<Movies> selectMoviesPage(int page);
+
+    int selectInTypeMoviesLength(int typeId);
+
+    int searchMoviesLength(String selectCondition);
 //
 //    List<Movies> getStarredMovies(int userId);
 //

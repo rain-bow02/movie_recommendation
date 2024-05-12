@@ -1,8 +1,13 @@
 package com.example.shopserve.controller;
 
 import com.example.shopserve.entity.Movies;
+import com.example.shopserve.entity.MoviesType;
+import com.example.shopserve.result.Pagination;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.MoviesService;
+import com.example.shopserve.service.MoviesTypeService;
+import com.example.shopserve.service.StarsService;
+import com.example.shopserve.service.ViewRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,6 +25,12 @@ public class MoviesController {
 
     @Autowired
     private MoviesService moviesService;
+    @Autowired
+    private MoviesTypeService moviesTypeService;
+    @Autowired
+    private StarsService starsService;
+    @Autowired
+    private ViewRecordService viewRecordService;
 
     /*查找所有电影*/
     @Operation(summary = "展示所有电影",
@@ -28,10 +39,13 @@ public class MoviesController {
             }
     )
     @GetMapping("/getAllMovies")
-    public Result<List<Movies>> getAllMovies(){
+    public Result<Pagination<Movies>> getAllMovies(int page){
         try{
-            List<Movies> list = moviesService.selectAllMovies();
-            return Result.ok(list);
+            List<Movies> list = moviesService.selectMoviesPage(page);
+            int length=moviesService.selectMoviesLength();
+            Pagination pagi=Pagination.ok(list,length,page,20);
+            return Result.ok(pagi);
+//            return Result.ok(list);
         }catch (Exception e){
             return Result.error(500,"服务器繁忙，请稍后重试");
         }
@@ -46,19 +60,21 @@ public class MoviesController {
             @ApiImplicitParam(name = "typeId", value = "电影类型id",  required = true, dataTypeClass = java.lang.String.class)
     })
     @GetMapping("/inTypeMovies/{typeId}")
-    public Result<List<Movies>> getInTypeMovies(@PathVariable(name="typeId") String typeId){
+    public Result<Pagination<Movies>> getInTypeMovies(@PathVariable(name="typeId") int typeId,int page){
 
-        try{
-            System.out.println("sdsda");
-            List<Movies> list = moviesService.showInTypeMovies(typeId);
-            System.out.println("sdsda");
-            return Result.ok(list);
-        }catch (Exception e){
-
-            return Result.error(500,"服务器繁忙，请稍后重试");
-        }
+        System.out.println(typeId+"getInTypeMovies"+page);
+//        try{
+            List<Movies> list = moviesService.showInTypeMovies(typeId,page);
+            int length=moviesService.selectInTypeMoviesLength(typeId);
+            Pagination pagi=Pagination.ok(list,length,page,20);
+            return Result.ok(pagi);
+//            return Result.ok(list);
+//        }catch (Exception e){
+//
+//            return Result.error(500,"服务器繁忙，请稍后重试");
+//        }
     }
-    //得到某一位用户评价过的所有电影
+    //得到某一位用户的推荐电影
     @GetMapping("/recommend/{userId}")
     public Result<List<Movies>> getRecommendMovies(@PathVariable(name="userId") int userId){
         long startTime = System.nanoTime();
@@ -79,8 +95,16 @@ public class MoviesController {
      * @return 电影列表
      */
     @GetMapping("/search/{selectCondition}")
-    public Result<List<Movies>> searchMovies(@PathVariable(name="selectCondition") String selectCondition){
-        return Result.ok(this.moviesService.searchMovies(selectCondition));
+    public Result<Pagination<Movies>> searchMovies(@PathVariable(name="selectCondition") String selectCondition,int page){
+        try{
+        List<Movies> list = moviesService.searchMovies(selectCondition,page);
+        int length=moviesService.searchMoviesLength(selectCondition);
+        Pagination pagi=Pagination.ok(list,length,page,20);
+        return Result.ok(pagi);
+        }catch (Exception e){
+
+            return Result.error(500,"没有符合条件的电影");
+        }
     }
 
     /**
@@ -95,8 +119,12 @@ public class MoviesController {
         if(moviesList.size()>0){
             return Result.error(500,"新增失败，电影名称已存在");
         }
-        else{
+        else{//电影
+            System.out.println("新增电影" );
             this.moviesService.insertMovie(movies);
+            Movies movies1= this.moviesService.searchMoviesByAllName(movies.getName()).get(0);
+            //类别
+            this.moviesTypeService.insertMovieRelation(movies1);
             return Result.ok("新增成功");
         }
 
@@ -117,15 +145,21 @@ public class MoviesController {
         else{
             this.moviesService.updateMovie(movies,id);
             Movies movie1= this.moviesService.queryById(id);
+            //类别
+            if( movies.getGenre()!=null){
+                if(movies.getId()==null) movies.setId(id);
+                this.moviesTypeService.insertMovieRelation(movies);
+            }
+
             return Result.ok(movie1,"修改成功");
         }
 
     }
 
     /**
-     * 删除电影
+     * 删除电影,删除电影_电影类型
      *
-     * @param movies
+     * @param id
      * @return 实例对象
      */
     @PostMapping("/delete/{id}")
@@ -135,7 +169,12 @@ public class MoviesController {
             return Result.error(500,"删除失败，电影不存在");
         }
         else{
+            //删除
+            this.moviesTypeService.deleteRelation(id);
+            this.starsService.deleteMovies(id);
+            this.viewRecordService.deleteMovies(id);
             this.moviesService.deleteMovie(id);
+
             return Result.ok("删除成功");
         }
     }

@@ -2,6 +2,7 @@ package com.example.shopserve.controller;
 
 import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.Stars;
+import com.example.shopserve.result.Pagination;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.StarsService;
 import io.swagger.annotations.Api;
@@ -22,9 +23,17 @@ public class StarsController {
     //1新增id收藏
     @GetMapping("/save")
     public Result<Stars> saveStars(@RequestBody Stars stars){
-         starsService.saveStars(stars);
+        Stars stars1=starsService.hasStars(stars);
+        if(stars1!=null){
+            return Result.error(500,"收藏失败，已收藏该电影");
+        }else{
+            starsService.saveStars(stars);
+            Stars stars2=starsService.hasStars(stars);
+            return Result.ok(stars2, "收藏成功");
+        }
 
-        return Result.ok(stars, "修改成功");
+
+
 
     }
     //2删除id收藏
@@ -37,11 +46,14 @@ public class StarsController {
     }
     //3得到某一位用户收藏过的所有电影
     @GetMapping("/all/{userId}")
-    public Result<List<Movies>> getStarredMovies(@PathVariable(name="userId") int userId){
+    public Result<Pagination<Movies>> getStarredMovies(@PathVariable(name="userId") int userId,int page){
         System.out.println(userId+"useriduserid");
-        List<Movies> list = starsService.getStarredMovies(userId);
+        List<Movies> list = starsService.getStarredMovies(userId,page);
+        int length=starsService.selectStarredMoviesLength(userId);
+        Pagination pagi=Pagination.ok(list,length,page,20);
+        return Result.ok(pagi);
 
-        return Result.ok(list, "修改成功");
+//        return Result.ok(list, "返回该用户所有电影");
 
     }
 
