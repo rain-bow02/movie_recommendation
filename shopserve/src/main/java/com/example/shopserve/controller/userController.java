@@ -1,13 +1,17 @@
 package com.example.shopserve.controller;
 
 
+import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.User;
+import com.example.shopserve.result.Pagination;
+import com.example.shopserve.service.RoleService;
 import com.example.shopserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.shopserve.result.Result;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -15,6 +19,8 @@ import java.sql.SQLException;
 public class userController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private  RoleService roleService;
 //
 
     @PostMapping("/login")
@@ -36,7 +42,7 @@ public class userController {
     @GetMapping("/userShow/{id}")
     public Result<User> queryUserDetail(@PathVariable("id") Integer userId){
         System.out.println(userService.queryById(userId));
-        return Result.ok(userService.queryById(userId), "修改成功");
+        return Result.ok(userService.queryById(userId), "查看信息");
     }
     @PostMapping("/register")
     public Result<String>  register(@RequestBody User user) throws SQLException, ClassNotFoundException {
@@ -54,7 +60,7 @@ public class userController {
 
     }
     @PostMapping("/add")
-    public Result<String>  add(@RequestBody User user) throws SQLException, ClassNotFoundException {
+    public Result<User>  add(@RequestBody User user) throws SQLException, ClassNotFoundException {
         User user1;
         System.out.println(user);
 
@@ -62,24 +68,33 @@ public class userController {
         if (user1 == null) {
             System.out.println("user的昵称" + user.getName());
             userService.insert(user);
-            return Result.ok(null, "添加成功");
+            User user2 = userService.queryByName(user.getName());
+            if(user2!=null&&user.getRole_id()!=null) {
+                roleService.addUserRelation(user2);
+            }
+            return Result.ok(user2, "添加成功");
         } else {
             return Result.error(404,"该用户已存在！");
         }
 
     }
     @PostMapping("/update/{id}")
-    public Result<String>  update(@RequestBody User user, @PathVariable int id) throws SQLException, ClassNotFoundException {
+    public Result<User>  update(@RequestBody User user, @PathVariable int id) throws SQLException, ClassNotFoundException {
         User user1;
         System.out.println(user);
         user1 = userService.queryById(id);
         if (user1 == null) {
             return Result.error(500,"该用户不存在！");
         } else {
-            if(user.getId()==null) user.setId(id);
-            System.out.println("user的昵称" + user.getName());
+            if(user.getId()==null) {
+                user.setId(id);
+            }
             userService.update(user);
-            return Result.ok(null, "修改成功");
+            User user2 = userService.queryByName(user.getName());
+            if(user.getRole_id()!=null)
+                roleService.addUserRelation(user2);
+//            return Result.ok(user2, "添加成功");
+            return Result.ok(user2, "修改成功");
         }
 
     }
@@ -95,6 +110,14 @@ public class userController {
             return Result.ok(null, "删除成功");
         }
 
+    }
+    //3得到某一位用户收藏过的所有电影
+    @GetMapping("/all")
+    public Result<Pagination<User>> getStarredMovies(int page){
+        List<User> list = userService.getUserPage(page);
+        int length=userService.count();
+        Pagination pagi=Pagination.ok(list,length,page,20);
+        return Result.ok(pagi);
     }
 }
 

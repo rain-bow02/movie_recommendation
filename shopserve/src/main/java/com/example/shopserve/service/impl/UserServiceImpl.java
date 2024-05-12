@@ -1,5 +1,6 @@
 package com.example.shopserve.service.impl;
 
+import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.User;
 import com.example.shopserve.dao.UserDao;
 import com.example.shopserve.service.UserService;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (User)表服务实现类
@@ -76,5 +78,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteById(Integer id) {
         return this.userDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<User> getUserPage(int page) {
+        int offset=(page-1)*20;
+        List<User> shopList = this.userDao.getUserPage(offset,20);
+//        return shopList;
+        return shopList;
+    }
+
+    @Override
+    public int count() {
+       return  this.userDao.count();
     }
 }

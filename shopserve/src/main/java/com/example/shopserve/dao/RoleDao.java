@@ -1,5 +1,6 @@
 package com.example.shopserve.dao;
 
+import com.example.shopserve.entity.Role;
 import com.example.shopserve.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 2023-06-14 14:19:30
  */
 @Mapper
-public interface UserDao {
+public interface RoleDao {
 
     /**
      * 通过ID查询单条数据
@@ -21,7 +22,7 @@ public interface UserDao {
      * @param id 主键
      * @return 实例对象
      */
-    User queryById(Integer id);
+    Role queryById(Integer id);
 
     /**
      * name
@@ -29,7 +30,7 @@ public interface UserDao {
      * @param name 主键
      * @return 实例对象
      */
-    User queryByName(String name);
+    Role queryByName(String name);
     /**
      * 统计总行数
      *
@@ -44,7 +45,7 @@ public interface UserDao {
      * @param user 实例对象
      * @return 影响行数
      */
-    int insert(User user);
+    int insert(Role user);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -52,7 +53,7 @@ public interface UserDao {
      * @param entities List<User> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<User> entities);
+    int insertBatch(@Param("entities") List<Role> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
@@ -61,7 +62,7 @@ public interface UserDao {
      * @return 影响行数
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
-    int insertOrUpdateBatch(@Param("entities") List<User> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Role> entities);
 
     /**
      * 修改数据
@@ -69,7 +70,7 @@ public interface UserDao {
      * @param user 实例对象
      * @return 影响行数
      */
-    int update(User user);
+    int update(Role user);
 
     /**
      * 通过主键删除数据
@@ -79,6 +80,10 @@ public interface UserDao {
      */
     int deleteById(Integer id);
 
-    List<User> getUserPage(int offset, int size);
+    List<Role> getUserPage(int offset, int size);
+
+    void insertRole_user(int user_id, int role_id);
+
+    int deleteRole_user(int user_id);
 }
 

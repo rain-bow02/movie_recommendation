@@ -1,5 +1,6 @@
 package com.example.shopserve.service;
 
+import com.example.shopserve.entity.Role;
 import com.example.shopserve.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public interface UserService {
+public interface RoleService {
 
     /**
      * 通过ID查询单条数据
@@ -23,7 +24,7 @@ public interface UserService {
      * @param id 主键
      * @return 实例对象
      */
-    User queryById(Integer id);
+    Role queryById(Integer id);
 
     /**
      * 通过ID查询单条数据
@@ -31,7 +32,7 @@ public interface UserService {
      * @param name 主键
      * @return 实例对象
      */
-    User queryByName(String name);
+    Role queryByName(String name);
 
 
     /**
@@ -40,7 +41,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User insert(User user);
+    Role insert(Role user);
 
     /**
      * 修改数据
@@ -48,7 +49,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User update(User user);
+    Role update(Role user);
 
     /**
      * 通过主键删除数据
@@ -58,7 +59,13 @@ public interface UserService {
      */
     boolean deleteById(Integer id);
 
-    List<User> getUserPage(int page);
+    List<Role> getUserPage(int page);
 
     int count();
+
+    void addUserRelation(User user);
+
+    void insertRole_user(int user_id, int role_id);
+
+    int deleteRelation(int movieId);
 }

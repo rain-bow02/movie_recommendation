@@ -87,10 +87,9 @@ public class MoviesTypeServiceImpl implements MoviesTypeService {
         if (movies1.getGenre().contains("|")) {
             names = movies1.getGenre().split("\\|");
         } else names = new String[]{movies1.getGenre()};
-
+        int movieId = movies1.getId();
         for (int index = 0; index < names.length; index++) {
             int typeId;
-            int movieId = movies1.getId();
             System.out.println(movieId + "movieId" + names[0]);
             MoviesType type = getMoviesTypeByName(names[index]);
             if (type == null) {

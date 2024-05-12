@@ -147,7 +147,9 @@ public class MoviesController {
             Movies movie1= this.moviesService.queryById(id);
             //类别
             if( movies.getGenre()!=null){
-                if(movies.getId()==null) movies.setId(id);
+                if(movies.getId()==null) {
+                    movies.setId(id);
+                }
                 this.moviesTypeService.insertMovieRelation(movies);
             }
 
