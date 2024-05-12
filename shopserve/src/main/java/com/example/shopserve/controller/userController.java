@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class userController {
     @Autowired
     private UserService userService;
-
+//
 
     @PostMapping("/login")
     public Result<User> login(String name , String password) throws SQLException, ClassNotFoundException {
@@ -53,7 +53,49 @@ public class userController {
             }
 
     }
+    @PostMapping("/add")
+    public Result<String>  add(@RequestBody User user) throws SQLException, ClassNotFoundException {
+        User user1;
+        System.out.println(user);
 
+        user1 = userService.queryByName(user.getName());
+        if (user1 == null) {
+            System.out.println("user的昵称" + user.getName());
+            userService.insert(user);
+            return Result.ok(null, "添加成功");
+        } else {
+            return Result.error(404,"该用户已存在！");
+        }
+
+    }
+    @PostMapping("/update/{id}")
+    public Result<String>  update(@RequestBody User user, @PathVariable int id) throws SQLException, ClassNotFoundException {
+        User user1;
+        System.out.println(user);
+        user1 = userService.queryById(id);
+        if (user1 == null) {
+            return Result.error(500,"该用户不存在！");
+        } else {
+            if(user.getId()==null) user.setId(id);
+            System.out.println("user的昵称" + user.getName());
+            userService.update(user);
+            return Result.ok(null, "修改成功");
+        }
+
+    }
+    @PostMapping("/delete/{id}")
+    public Result<String>  delete(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        User user1;
+        System.out.println(id);
+        user1 = userService.queryById(id);
+        if (user1 == null) {
+            return Result.error(500,"该用户不存在！");
+        } else {
+            userService.deleteById(id);
+            return Result.ok(null, "删除成功");
+        }
+
+    }
 }
 
 
