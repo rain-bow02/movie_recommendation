@@ -8,6 +8,15 @@ import java.io.Serializable;
 public class Role  implements Serializable {
     private Integer id;
     private String name;
+    private String permission_id;
+
+    public String getPermission_id() {
+        return permission_id;
+    }
+
+    public void setPermission_id(String permission_id) {
+        this.permission_id = permission_id;
+    }
 
     public Integer getId() {
         return id;

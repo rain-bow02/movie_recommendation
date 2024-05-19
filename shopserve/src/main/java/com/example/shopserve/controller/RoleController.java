@@ -5,6 +5,7 @@ import com.example.shopserve.entity.Role;
 import com.example.shopserve.entity.User;
 import com.example.shopserve.result.Pagination;
 import com.example.shopserve.result.Result;
+import com.example.shopserve.service.PermissionService;
 import com.example.shopserve.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ import java.util.List;
 public class RoleController {
     @Autowired
     private RoleService roleService;
-//
+    @Autowired
+    private PermissionService permissionService;
 
     @PostMapping("/add")
     public Result<String>  add(@RequestBody Role role) throws SQLException, ClassNotFoundException {
@@ -27,8 +29,12 @@ public class RoleController {
 
         user1 = roleService.queryByName(role.getName());
         if (user1 == null) {
-            System.out.println("user的昵称" + role.getName());
-            roleService.insert(role);
+           int id= roleService.insert(role);
+            System.out.println("id" + id);
+            Role user2 = roleService.queryById(id);
+            if(user2!=null&&role.getPermission_id()!=null) {
+                permissionService.addRoleRelation(role);
+            }
             return Result.ok(null, "添加成功");
         } else {
             return Result.error(404,"角色已存在！");

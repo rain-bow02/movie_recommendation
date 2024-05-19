@@ -53,6 +53,9 @@
     <insert id="insertRole_user">
         insert into role_permission(role_id,permission_id) value(#{role_id},#{permission_id})
     </insert>
+    <insert id="insertRole_permission">
+        insert into role_permission(role_id,permission_id) value(#{role_id},#{permission_id})
+    </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -80,7 +83,16 @@
     </delete>
     <delete id="deleteUser_role">
         delete
-        from role_permission where permission_id = #{permission_id}</delete>
+        from role_permission where permission_id = #{permission_id}
+    </delete>
+    <delete id="deleteRole_permission">
+        delete
+        from role_permission where role_id = #{role_id}
+    </delete>
+    <delete id="deletePermission_role">
+        delete
+        from role_permission where permission_id = #{permission_id}
+    </delete>
     <!--insert into role() values("系统管理员")-->
 </mapper>
 

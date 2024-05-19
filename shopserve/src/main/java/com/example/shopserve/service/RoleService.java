@@ -41,7 +41,7 @@ public interface RoleService {
      * @param user 实例对象
      * @return 实例对象
      */
-    Role insert(Role user);
+    int insert(Role user);
 
     /**
      * 修改数据

@@ -113,7 +113,7 @@ public class userController {
     }
     //3得到某一位用户收藏过的所有电影
     @GetMapping("/all")
-    public Result<Pagination<User>> getStarredMovies(int page){
+    public Result<Pagination<User>> getAllUser(int page){
         List<User> list = userService.getUserPage(page);
         int length=userService.count();
         Pagination pagi=Pagination.ok(list,length,page,20);

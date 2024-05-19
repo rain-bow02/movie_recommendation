@@ -51,9 +51,10 @@ public class RoleServiceImpl implements RoleService {
      * @return 实例对象
      */
     @Override
-    public Role insert(Role user) {
+    public int insert(Role user) {
         this.roleDao.insert(user);
-        return user;
+        int id= this.roleDao.selectLastId();
+        return id;
     }
 
     /**
@@ -71,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param role_id 主键
      * @return 是否成功
      */
     @Override
@@ -123,5 +124,7 @@ public class RoleServiceImpl implements RoleService {
     public void deleteRole_user(int role_id) {
         this.roleDao.deleteRole_user(role_id);
     }
+
+
 
 }

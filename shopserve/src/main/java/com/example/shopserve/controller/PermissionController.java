@@ -58,7 +58,7 @@ public class PermissionController {
         user1 = permissionService.queryById(id);
         if (user1 == null) {
             return Result.error(500,"角色不存在！");
-        } else {//删除角色，删除角色用户，删除角色权限
+        } else {//删除权限，删除角色权限
             permissionService.deleteById(id);
             return Result.ok(null, "删除成功");
         }

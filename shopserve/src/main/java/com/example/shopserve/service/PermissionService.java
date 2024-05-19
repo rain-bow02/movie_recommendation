@@ -1,6 +1,7 @@
 package com.example.shopserve.service;
 
 import com.example.shopserve.entity.Permission;
+import com.example.shopserve.entity.Role;
 import com.example.shopserve.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,11 +64,11 @@ public interface PermissionService {
 
     int count();
 
-    void addUserRelation(User user);
+    void insertRole_permission(int user_id, int role_id);
 
-    void insertRole_user(int user_id, int role_id);
+    int deleteRole_permission(int role_id) ;
 
-    int deleteUser_role(int user_id);
+    void deletePermission_role(int permission_id);
 
-    void deleteRole_user(int role_id);
+    void addRoleRelation(Role role);
 }

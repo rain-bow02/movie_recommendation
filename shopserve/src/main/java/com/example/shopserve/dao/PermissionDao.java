@@ -87,5 +87,11 @@ public interface PermissionDao {
     int deleteRole_user(int role_id);
 
     int deleteUser_role(int user_id);
+
+    void insertRole_permission(int role_id, int permission_id);
+
+    int deleteRole_permission(int role_id);
+
+    void deletePermission_role(int permission_id);
 }
 

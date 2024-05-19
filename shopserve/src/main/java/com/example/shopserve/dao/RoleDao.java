@@ -87,5 +87,7 @@ public interface RoleDao {
     int deleteRole_user(int role_id);
 
     int deleteUser_role(int user_id);
+
+    int selectLastId();
 }
 
