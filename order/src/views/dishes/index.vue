@@ -33,6 +33,11 @@
         @click="jumpToMovieDetail(movie)"
       />
     </van-grid>
+    <van-pagination
+      v-model="currentPage"
+      :page-count="totalPage"
+      mode="simple"
+    />
   </div>
 </template>
 
@@ -50,6 +55,8 @@ export default {
       searchValue: "",
       activeName: "a",
       typeId: 1,
+      currentPage: 1,
+      totalPage: 1,
       movies: [],
       types: [
         { id: 0, name: "全部" },
@@ -86,7 +93,7 @@ export default {
       const { list } = await getSearchMovies(active);
       this.movies = [
         ...this.movies, //拷贝数组
-        ...list,
+        ...list.data,
       ];
       this.loading = false;
     },
@@ -105,7 +112,8 @@ export default {
       } else {
         getAllMovies()
           .then((resp) => {
-            this.movies = resp;
+            console.log(resp);
+            this.movies = resp.data;
           })
           .catch((err) => {
             this.$message.error(err.message);
@@ -133,8 +141,10 @@ export default {
   async created() {
     this.orderList = this.$route.params;
     // this.getStoresList();
-    getAllMovies().then((resp) => {
-      this.movies = resp;
+    getAllMovies(this.currentPage).then((resp) => {
+      console.log(resp);
+      this.movies = resp.data;
+      this.totalPage = resp.totalPage;
     });
   },
 };

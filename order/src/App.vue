@@ -2,24 +2,22 @@
   <div id="app">
     <header>
       <!-- 命名视图 -->
-       <router-view name="header"/>
+      <router-view name="header" />
     </header>
     <main>
-        <router-view/>
+      <router-view />
     </main>
-    <footer>
+    <footer class="footer">
       <!-- 命名视图 -->
-       <router-view name="footer"/>
+      <router-view name="footer" />
     </footer>
   </div>
-
 </template>
 
 <script>
-export default ({
-  name:'app', //组件名称
-})
-
+export default {
+  name: "app", //组件名称
+};
 </script>
 
 <style lang="less">
@@ -42,5 +40,8 @@ nav {
       color: #42b983;
     }
   }
+}
+.footer {
+  height: 50px;
 }
 </style>

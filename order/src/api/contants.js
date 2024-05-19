@@ -20,9 +20,9 @@ const API = {
   API_ORDER_DISHES: "/dishes/inOrderDishes",
   // 提交评分
   API_RATING_SUBMIT: "/rating/saveRating",
-  //得到所有菜品
+  //得到所有电影
   API_Movies_ALL: "/movies/getAllMovies",
-  //根据类型查找菜品、
+  //根据类型查找电影、
   API_Movies_BY_TYPE: "movies/inTypeMovies",
   //根据状态查找订单
   API_ODER_STATUS_SHOW: "/order/showOrdersByStatus",
