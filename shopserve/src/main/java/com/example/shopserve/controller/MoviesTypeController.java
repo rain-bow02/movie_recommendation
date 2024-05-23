@@ -24,28 +24,27 @@ public class MoviesTypeController {
     @Autowired
     private MoviesTypeService moviesTypeService;
 
-    /*分容量分页查询电影类型*/
-    @Operation(summary = "分页查询电影类型",
-            responses = {
-                    @ApiResponse(description = "返回：分页查询电影类型"),
-            }
-    )
-    @GetMapping ("/getAllTypes")
-    public Result<Pagination<MoviesType>> getAllTypes(int page, int size){
-        try{
-            List<MoviesType> data=moviesTypeService.getMoviesTypeByPageSize(page, size);
-            int length=moviesTypeService.selectTypesLength();
-            Pagination pagi=Pagination.ok(data,length,page,size);
-//            Result<Pagination<Movies>> movies=moviesTypeService.getMoviesByPage(page, size);
-//            List<Movies> list = moviesTypeService.selectAllTypes();
-            return Result.ok(pagi);
-        }catch (Exception e){
-            return Result.error(500,"服务器繁忙，请稍后重试");
-        }
-    }
 
-    /*分页查询电影类型*/
-    @GetMapping("/getAllTypesPage")
+//    @GetMapping ("/getAllTypes")
+//    public Result<Pagination<MoviesType>> getAllTypes(int page, int size){
+//        try{
+//            List<MoviesType> data=moviesTypeService.getMoviesTypeByPageSize(page, size);
+//            int length=moviesTypeService.selectTypesLength();
+//            Pagination pagi=Pagination.ok(data,length,page,size);
+////            Result<Pagination<Movies>> movies=moviesTypeService.getMoviesByPage(page, size);
+////            List<Movies> list = moviesTypeService.selectAllTypes();
+//            return Result.ok(pagi);
+//        }catch (Exception e){
+//            return Result.error(500,"服务器繁忙，请稍后重试");
+//        }
+//    }
+/*分容量分页查询电影类型*/
+@Operation(summary = "分页查询电影类型",
+        responses = {
+                @ApiResponse(description = "返回：分页查询电影类型"),
+        }
+)
+    @GetMapping("/all")
     public Result<Pagination<MoviesType>> getAllTypes(int page){
         try{
             List<MoviesType> data=moviesTypeService.getMoviesTypeByPage(page);
@@ -56,13 +55,24 @@ public class MoviesTypeController {
             return Result.error(500,"服务器繁忙，请稍后重试");
         }
     }
+    @GetMapping("/search/{selectCondition}")
+    public Result<Pagination<MoviesType>> searchMoviesType(int page){
+//        try{
+//            List<MoviesType> data=moviesTypeService.getMoviesTypeByPage(page);
+//            int length=moviesTypeService.selectTypesLength();
+//            Pagination pagi=Pagination.ok(data,length,page);
+//            return Result.ok(pagi);
+//        }catch (Exception e){
+//            return Result.error(500,"服务器繁忙，请稍后重试");
+//        }
+    }
     /*新增电影类型*/
     @Operation(summary = "新增电影类型",
             responses = {
                     @ApiResponse(description = "返回：新增的电影类型"),
             }
     )
-    @PostMapping ("/insert")
+    @PostMapping ("/add")
     public Result<MoviesType> insertType(@RequestBody MoviesType moviesType ){
         try{
             MoviesType data=moviesTypeService.getMoviesTypeByName(moviesType.getName());

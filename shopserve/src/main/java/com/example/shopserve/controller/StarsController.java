@@ -21,7 +21,7 @@ public class StarsController {
     //1新增id收藏，2删除id收藏，3查看id收藏
 
     //1新增id收藏
-    @GetMapping("/save")
+    @GetMapping("/saveStars")
     public Result<Stars> saveStars(@RequestBody Stars stars){
         Stars stars1=starsService.hasStars(stars);
         if(stars1!=null){
@@ -45,7 +45,7 @@ public class StarsController {
 
     }
     //3得到某一位用户收藏过的所有电影
-    @GetMapping("/all/{userId}")
+    @GetMapping("/showStars/{userId}")
     public Result<Pagination<Movies>> getStarredMovies(@PathVariable(name="userId") int userId,int page){
         System.out.println(userId+"useriduserid");
         List<Movies> list = starsService.getStarredMovies(userId,page);

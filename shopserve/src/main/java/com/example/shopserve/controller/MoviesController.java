@@ -38,7 +38,7 @@ public class MoviesController {
                     @ApiResponse(description = "返回：所有电影"),
             }
     )
-    @GetMapping("/getAllMovies")
+    @GetMapping("/all")
     public Result<Pagination<Movies>> getAllMovies(int page){
         try{
             List<Movies> list = moviesService.selectMoviesPage(page);
@@ -113,7 +113,7 @@ public class MoviesController {
      * @param movies
      * @return 实例对象
      */
-    @PostMapping("/insert")
+    @PostMapping("/add")
     public Result<String> insertMovie(@RequestBody Movies movies)  {
         List<Movies> moviesList= this.moviesService.searchMoviesByAllName(movies.getName());
         if(moviesList.size()>0){
@@ -179,6 +179,29 @@ public class MoviesController {
 
             return Result.ok("删除成功");
         }
+    }
+
+    /**
+     * 生成相似电影，电影id
+     *
+     * @param  id
+     * @return 实例对象
+     */
+    @PostMapping("/similar/{id}")
+    public Result<List<Movies>> getSimilar( @PathVariable int id)  {
+//        Movies movie= this.moviesService.queryById(id);
+//        if(movie == null){
+//            return Result.error(500,"删除失败，电影不存在");
+//        }
+//        else{
+//            //删除
+//            this.moviesTypeService.deleteRelation(id);
+//            this.starsService.deleteMovies(id);
+//            this.viewRecordService.deleteMovies(id);
+//            this.moviesService.deleteMovie(id);
+//
+//            return Result.ok("删除成功");
+//        }
     }
 
 }

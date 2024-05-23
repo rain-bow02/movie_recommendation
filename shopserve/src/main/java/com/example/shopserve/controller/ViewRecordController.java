@@ -23,7 +23,7 @@ public class ViewRecordController {
     //新增id浏览记录，删除id浏览记录，查看id浏览记录，通过浏览记录电影id获取电影信息
 
     //1新增id浏览记录
-    @GetMapping("/save")
+    @GetMapping("/saveViewRecord")
     public Result<ViewRecord> saveViewRecord(@RequestBody ViewRecord viewRecord){
 
         ViewRecord viewRecord1=viewRecordService.hasViewRecord(viewRecord);
@@ -50,7 +50,7 @@ public class ViewRecordController {
 
     }
     //得到某一位用户最近浏览过的所有电影
-    @GetMapping("/all/{userId}")
+    @GetMapping("/allViewRecord/{userId}")
     public Result<Pagination<Movies>> getMoviesSeen(@PathVariable(name="userId") int userId,int page){
 //        System.out.println(userId+"useriduserid");
 //        List<Movies> list = viewRecordService.getMoviesSeen(userId);

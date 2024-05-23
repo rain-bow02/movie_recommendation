@@ -20,6 +20,13 @@ public class PermissionController {
     private PermissionService permissionService;
 //
 
+    @GetMapping("/all")
+    public Result<Pagination<Permission>> getStarredMovies(int page){
+        List<Permission> list = permissionService.getUserPage(page);
+        int length=permissionService.count();
+        Pagination pagi=Pagination.ok(list,length,page,20);
+        return Result.ok(pagi);
+    }
     @PostMapping("/add")
     public Result<String> add(@RequestBody Permission permission) throws SQLException, ClassNotFoundException {
         Permission permission1;
@@ -63,12 +70,5 @@ public class PermissionController {
             return Result.ok(null, "删除成功");
         }
 
-    }
-    @GetMapping("/all")
-    public Result<Pagination<Permission>> getStarredMovies(int page){
-        List<Permission> list = permissionService.getUserPage(page);
-        int length=permissionService.count();
-        Pagination pagi=Pagination.ok(list,length,page,20);
-        return Result.ok(pagi);
     }
 }
