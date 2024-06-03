@@ -71,7 +71,6 @@
             </if>
 
         </where>
-        LIMIT  #{offset}, #{size}
     </select>
     <select id="selectMoviesLength" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM movies
@@ -98,6 +97,13 @@
             </if>
 
         </where>
+    </select>
+    <select id="getSimilar" resultType="java.lang.Integer">
+        SELECT  movie_target_id
+        FROM movie_movie_similarity
+        where movie_source_id=#{id}
+        ORDER BY similarity DESC
+        LIMIT 5
     </select>
     <insert id="insertMovie">
         INSERT INTO movies(name,release_time, intro,director,writers, actors,time,genre) VALUES

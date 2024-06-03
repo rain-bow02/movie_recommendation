@@ -1,5 +1,6 @@
 package com.example.shopserve.service;
 
+import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.Rating;
 
 import org.springframework.stereotype.Service;
@@ -12,5 +13,7 @@ import java.util.List;
 @Transactional(propagation= Propagation.REQUIRES_NEW)
 public interface RatingService {
     void SaveRating(Rating rating);
-    List<Rating> showRatingByUserId(int userId);
+    List<Movies> showRatingByUserId(int userId);
+
+    int selectStarredMoviesLength(int userId);
 }

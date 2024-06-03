@@ -62,5 +62,7 @@ public interface MoviesDao {
     int selectInTypeMoviesLength(int typeId);
 
     int searchMoviesLength(String selectCondition);
+
+    List<Integer> getSimilar(int id);
 }
 

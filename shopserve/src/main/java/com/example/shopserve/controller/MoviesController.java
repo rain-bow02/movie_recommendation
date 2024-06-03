@@ -189,19 +189,23 @@ public class MoviesController {
      */
     @PostMapping("/similar/{id}")
     public Result<List<Movies>> getSimilar( @PathVariable int id)  {
-//        Movies movie= this.moviesService.queryById(id);
-//        if(movie == null){
-//            return Result.error(500,"删除失败，电影不存在");
-//        }
-//        else{
-//            //删除
-//            this.moviesTypeService.deleteRelation(id);
-//            this.starsService.deleteMovies(id);
-//            this.viewRecordService.deleteMovies(id);
-//            this.moviesService.deleteMovie(id);
-//
-//            return Result.ok("删除成功");
-//        }
+        List<Movies> list= this.moviesService.getSimilar(id);
+        return Result.ok(list);
     }
 
+    /**
+     * 根据id查找数据
+     *
+     * @param  id
+     * @return 实例对象
+     */
+    @PostMapping("/idInfo/{id}")
+    public Result<Movies> idInfo( @PathVariable int id)  {
+        Movies movie= this.moviesService.queryById(id);
+        if(movie!=null) {
+            return Result.ok(movie);
+        }else{
+            return Result.error(500,"该电影不存在");
+        }
+    }
 }

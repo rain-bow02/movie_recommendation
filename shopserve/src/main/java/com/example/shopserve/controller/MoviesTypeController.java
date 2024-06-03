@@ -55,8 +55,8 @@ public class MoviesTypeController {
             return Result.error(500,"服务器繁忙，请稍后重试");
         }
     }
-    @GetMapping("/search/{selectCondition}")
-    public Result<Pagination<MoviesType>> searchMoviesType(int page){
+//    @GetMapping("/search/{selectCondition}")
+//    public Result<Pagination<MoviesType>> searchMoviesType(int page){
 //        try{
 //            List<MoviesType> data=moviesTypeService.getMoviesTypeByPage(page);
 //            int length=moviesTypeService.selectTypesLength();
@@ -65,7 +65,7 @@ public class MoviesTypeController {
 //        }catch (Exception e){
 //            return Result.error(500,"服务器繁忙，请稍后重试");
 //        }
-    }
+//    }
     /*新增电影类型*/
     @Operation(summary = "新增电影类型",
             responses = {

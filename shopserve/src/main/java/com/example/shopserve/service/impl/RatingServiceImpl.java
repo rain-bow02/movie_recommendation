@@ -1,9 +1,7 @@
 package com.example.shopserve.service.impl;
-import com.example.shopserve.dao.MoviesDao;
 import com.example.shopserve.dao.RatingDao;
 import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.Rating;
-import com.example.shopserve.service.MoviesService;
 import com.example.shopserve.service.RatingService;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,13 @@ public class RatingServiceImpl implements RatingService {
         this.ratingDao.SaveRating(rating);
     }
     @Override
-    public List<Rating> showRatingByUserId(int userId) {
+    public List<Movies> showRatingByUserId(int userId) {
         return ratingDao.showRatingByUserId(userId);
+    }
+
+    @Override
+    public int selectStarredMoviesLength(int userId) {
+        int length = this.ratingDao.selectStarredMoviesLength(userId);
+        return length;
     }
 }

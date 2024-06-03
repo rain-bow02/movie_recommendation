@@ -9,15 +9,7 @@ public class Rating implements Serializable {
     private Integer score;
     private String comment;
     private Integer movie_id;
-    private List<Movies> movies;
     private Integer user_id;
-
-    public List<Movies> getMovies() {
-        return movies;
-    }
-    public void setMovies(List<Movies> movies) {
-        this.movies = movies;
-    }
 
     public Integer getId() {
         return id;

@@ -3,7 +3,7 @@ package com.example.shopserve.result;
 
 import com.example.shopserve.entity.Recommend;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 7-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

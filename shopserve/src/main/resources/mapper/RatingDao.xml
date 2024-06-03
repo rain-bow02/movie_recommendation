@@ -30,6 +30,7 @@
         <result property="movie_id" column="movie_id" jdbcType="INTEGER"/>
         <result property="user_id" column="user_id" jdbcType="INTEGER"/>
         <collection property="movies" javaType="list"  ofType="com.example.shopserve.entity.Movies">
+            <result property="id" column="id" jdbcType="INTEGER"/>
             <result property="name"  column="name"  jdbcType="VARCHAR" />
             <result property="imdb_id" column="imdb_id" jdbcType="INTEGER" />
             <result property="release_time" column="release_time" jdbcType="VARCHAR"/>
@@ -48,15 +49,21 @@
         INSERT INTO movie_rating(score, comment, movie_id, user_id)
         VALUES (#{score}, #{comment}, #{movie_id}, #{user_id})
     </insert>
-    <select id="showRatingByUserId" resultMap="RatingMap">
-        SELECT a.id,a.score,a.comment,a.movie_id,a.user_id,
-               b.name, b.imdb_id, b.release_time, b.intro,b.director, b.writers, b.actors, b.time,
+    <select id="showRatingByUserId" resultType="com.example.shopserve.entity.Movies">
+        SELECT b.id,b.name, b.imdb_id, b.release_time, b.intro,b.director, b.writers, b.actors, b.time,
                b.genre ,Round(b.avg_rating,2) as avg_rating
         FROM movies b
                  right join movie_rating a
                             on a.movie_id = b.id
         WHERE a.user_id=#{user_id}
 
+    </select>
+    <select id="selectStarredMoviesLength" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM movies b
+                 right join movie_rating a
+                            on a.movie_id = b.id
+        WHERE a.user_id=#{user_id}
     </select>
 
     <!--    <insert id="SaveRating" keyProperty="id" useGeneratedKeys="true">-->

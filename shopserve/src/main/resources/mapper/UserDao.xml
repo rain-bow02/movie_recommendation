@@ -36,12 +36,12 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into user(name, password, email, title,role_id)
-        values (#{name}, #{password}, #{email}, #{title}, #{role_id})
+        insert into user(name, password, email, title,role_id,age,signature)
+        values (#{name}, #{password}, #{email}, #{title}, #{role_id}, #{age}, #{signature})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into user(name, title, email, password,role_id)
+        insert into user(name, title, email, password,role_id,age,signature)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.name}, #{entity.title}, #{entity.email}, #{entity.password}, #{entity.role_id})
@@ -79,6 +79,12 @@
             </if>
             <if test="role_id != null and role_id != ''">
                 role_id = #{role_id},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age},
+            </if>
+            <if test="signature != null and signature != ''">
+                signature = #{signature},
             </if>
         </set>
         where id = #{id}

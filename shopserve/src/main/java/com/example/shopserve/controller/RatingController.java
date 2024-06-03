@@ -1,7 +1,9 @@
 package com.example.shopserve.controller;
 
 
+import com.example.shopserve.entity.Movies;
 import com.example.shopserve.entity.Rating;
+import com.example.shopserve.result.Pagination;
 import com.example.shopserve.result.Result;
 import com.example.shopserve.service.RatingService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,12 +41,14 @@ public class RatingController {
             @ApiImplicitParam(name = "userId", value = "用户Id",  required = true, dataTypeClass = java.lang.String.class)
     })
     @GetMapping("/showRating/{userId}")
-    public Result<List<Rating>> showRatingByUserId(@PathVariable(name="userId") int userId) {
+    public Result<Pagination<Movies>> showRatingByUserId(@PathVariable(name="userId") int userId,int page) {
 
             System.out.println(userId+"userid");
-            List<Rating> list = ratingService.showRatingByUserId(userId);
+            List<Movies> list = ratingService.showRatingByUserId(userId);
+            int length=ratingService.selectStarredMoviesLength(userId);
+        Pagination pagi=Pagination.ok(list,length,page,20);
             System.out.println(list);
-            return Result.ok(list, "修改成功");
+            return Result.ok(pagi, "修改成功");
     }
 
 //    public Map<Integer, Map<Integer,Integer>> RshowRatingByMovieId(@PathVariable(name="userId") int userId) {

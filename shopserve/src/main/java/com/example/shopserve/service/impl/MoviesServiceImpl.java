@@ -268,6 +268,16 @@ return movies;
         int length = this.moviesDao.searchMoviesLength(selectCondition);
         return length;
     }
+
+    @Override
+    public List<Movies> getSimilar(int id) {
+        List<Integer> list= this.moviesDao.getSimilar(id);
+        List<Movies> movies=new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            movies.add(this.moviesDao.queryById(list.get(i)));
+        }
+        return movies;
+    }
 }
 
 //    @Override

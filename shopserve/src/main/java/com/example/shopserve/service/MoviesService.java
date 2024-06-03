@@ -57,6 +57,8 @@ public interface MoviesService {
     int selectInTypeMoviesLength(int typeId);
 
     int searchMoviesLength(String selectCondition);
+
+    List<Movies> getSimilar(int id);
 //
 //    List<Movies> getStarredMovies(int userId);
 //

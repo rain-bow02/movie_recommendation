@@ -29,7 +29,7 @@ public class userController {
         try{
             user= userService.queryByName(name);
             if(user.getPassword().equals(password)){
-                return Result.ok(user, "修改成功");
+                return Result.ok(user, "登录成功");
             }
             else{
                 return Result.error(500,"密码错误，请重新输入！");
@@ -53,7 +53,7 @@ public class userController {
             if (user1 == null) {
                 System.out.println("user的昵称" + user.getName());
                 userService.insert(user);
-                return Result.ok("注册成功！", "修改成功");
+                return Result.ok("注册成功！", "注册成功");
             } else {
                 return Result.error(404,"该用户已存在！");
             }
@@ -118,6 +118,21 @@ public class userController {
         int length=userService.count();
         Pagination pagi=Pagination.ok(list,length,page,20);
         return Result.ok(pagi);
+    }
+    /**
+     * 根据userid查找user数据
+     *
+     * @param  id
+     * @return 实例对象
+     */
+    @PostMapping("/idInfo/{id}")
+    public Result<User> idInfo( @PathVariable int id)  {
+        User user= this.userService.queryById(id);
+        if(user!=null) {
+            return Result.ok(user);
+        }else{
+            return Result.error(500,"该用户不存在");
+        }
     }
 }
 

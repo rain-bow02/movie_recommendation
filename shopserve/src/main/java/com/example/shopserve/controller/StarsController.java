@@ -21,7 +21,7 @@ public class StarsController {
     //1新增id收藏，2删除id收藏，3查看id收藏
 
     //1新增id收藏
-    @GetMapping("/saveStars")
+    @PostMapping("/saveStars")
     public Result<Stars> saveStars(@RequestBody Stars stars){
         Stars stars1=starsService.hasStars(stars);
         if(stars1!=null){
@@ -31,13 +31,20 @@ public class StarsController {
             Stars stars2=starsService.hasStars(stars);
             return Result.ok(stars2, "收藏成功");
         }
-
-
-
-
+    }
+    //4查找是否已收藏
+    //1新增id收藏
+    @PostMapping("/saved")
+    public Result<Boolean> saved(@RequestBody Stars stars){
+        Stars stars1=starsService.hasStars(stars);
+        if(stars1!=null){
+            return Result.ok(true,"已收藏该电影");
+        }else{
+            return Result.ok(false, "未收藏");
+        }
     }
     //2删除id收藏
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public Result deleteStars(@RequestBody Stars stars){
         starsService.deleteStars(stars);
 

@@ -36,6 +36,30 @@ public class User implements Serializable {
      * 角色
      */
     private String role_id;
+    /**
+     * 年龄
+     */
+    private Integer age;
+    /**
+     * 个性签名
+     */
+    private String signature;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getRole_id() {
         return role_id;

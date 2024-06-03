@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shopserve.dao.StarsDao">
-    <insert id="saveStars" parameterType="com.example.shopserve.entity.Stars">
+    <insert id="saveStars">
         INSERT INTO movie_stars( movie_id, user_id)
         VALUES ( #{movie_id}, #{user_id})
     </insert>
